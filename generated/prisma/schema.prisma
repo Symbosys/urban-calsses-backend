@@ -1,0 +1,521 @@
+// ───────────────────────────────────────────────────────────────
+// Urban Classes — Course Selling Platform
+// Prisma Schema (PostgreSQL)
+// ───────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  ENUMS
+// ═══════════════════════════════════════════════════════════════
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  ALL_LEVELS
+}
+
+enum CourseStatus {
+  DRAFT
+  UNDER_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum LessonType {
+  VIDEO
+  PDF
+  QUIZ
+  TEXT
+  LIVE
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  EXPIRED
+  COMPLETED
+  CANCELLED
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  1. AUTHENTICATION & USERS
+// ═══════════════════════════════════════════════════════════════
+
+model Account {
+  id        String   @id @default(cuid())
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Profile Relations (1:1)
+  student    User?
+  instructor Instructor?
+  admin      Admin?
+
+  @@index([role])
+  @@map("roles")
+}
+
+model User {
+  id     String  @id @default(cuid())
+  name   String?
+  email  String  @unique
+  phone  String? @unique
+  avatar Json? // { url, publicId, ... }
+
+  isVerified Boolean @default(false)
+  isBlocked  Boolean @default(false)
+
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  // Relations (Student specific)
+  goals          UserGoal[]
+  enrollments    Enrollment[]
+  orders         Order[]
+  reviews        Review[]
+  lessonProgress LessonProgress[]
+  wishlist       Wishlist[]
+
+  @@map("users")
+}
+
+model Instructor {
+  id String @id @default(cuid())
+
+  name   String?
+  email  String  @unique
+  phone  String? @unique
+  avatar Json? // { url, publicId, ... }
+
+  isVerified Boolean @default(false)
+  isBlocked  Boolean @default(false)
+
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  bio            String?
+  specialization String?
+  experience     Int?
+  rating         Float   @default(0)
+
+  // Relations (Teaching)
+  courses CourseInstructor[]
+
+  @@map("instructors")
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
+
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("admins")
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  email     String
+  otp       String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email, verified])
+  @@map("otps")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  2. COURSE TAXONOMY (Categories & Goals)
+// ═══════════════════════════════════════════════════════════════
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        Json? // { url, publicId, ... }
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  subCategories SubCategory[]
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  icon        Json? // { url, publicId, ... }
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  categoryId String
+  category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  courses    Course[]
+  userGoals  UserGoal[]
+
+  @@index([categoryId])
+  @@map("sub_categories")
+}
+
+model UserGoal {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relations
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subCategoryId String
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subCategoryId])
+  @@index([userId])
+  @@index([subCategoryId])
+  @@map("user_goals")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  3. COURSES & CONTENT
+//     Hierarchy: Course → Subject → Section → Lesson
+// ═══════════════════════════════════════════════════════════════
+
+model Course {
+  id               String       @id @default(cuid())
+  title            String
+  slug             String       @unique
+  shortDescription String?
+  description      String?      @db.Text
+  thumbnail        Json? // { url, publicId, ... }
+  previewVideo     Json? // { url, publicId, duration, ... }
+  price            Float        @default(0)
+  discountPrice    Float?
+  language         String       @default("Hindi")
+  level            CourseLevel  @default(ALL_LEVELS)
+  status           CourseStatus @default(DRAFT)
+  isFeatured       Boolean      @default(false)
+  durationMonths   Int          @default(0) // course validity in months
+  totalLessons     Int          @default(0)
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  // Relations
+  subCategoryId String
+  subCategory   SubCategory        @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  instructors   CourseInstructor[]
+  subjects      Subject[]
+  tags          CourseTag[]
+  enrollments   Enrollment[]
+  orders        Order[]
+  reviews       Review[]
+  wishlist      Wishlist[]
+
+  @@index([subCategoryId])
+  @@index([status])
+  @@index([isFeatured])
+  @@index([createdAt])
+  @@map("courses")
+}
+
+// ─── Many-to-Many: Course ↔ Instructor ─────────────────────────
+
+model CourseInstructor {
+  id        String   @id @default(cuid())
+  role      String   @default("instructor") // instructor / co-instructor / ta
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  // Relations
+  courseId     String
+  course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  instructorId String
+  instructor   Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, instructorId])
+  @@index([instructorId])
+  @@map("course_instructors")
+}
+
+// ─── Subject (inside a Course) ──────────────────────────────────
+
+model Subject {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  icon        Json? // { url, publicId, ... }
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  courseId String
+  course   Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  sections Section[]
+
+  @@index([courseId])
+  @@map("subjects")
+}
+
+// ─── Section (inside a Subject) ────────────────────────────────
+
+model Section {
+  id        String   @id @default(cuid())
+  title     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  subjectId String
+  subject   Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  lessons   Lesson[]
+
+  @@index([subjectId])
+  @@map("sections")
+}
+
+// ─── Lesson (inside a Section) ─────────────────────────────────
+
+model Lesson {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  type        LessonType @default(VIDEO)
+  content     String?    @db.Text // rich text / markdown for TEXT type
+  video       Json? // { url, publicId, duration, quality, ... }
+  attachments Json? // [{ url, publicId, name, type, size }]
+  duration    Int        @default(0) // in seconds
+  order       Int        @default(0)
+  isFree      Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  sectionId       String
+  section         Section          @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  progress        LessonProgress[]
+  lessonResources LessonResource[]
+
+  @@index([sectionId])
+  @@map("lessons")
+}
+
+model LessonResource {
+  id        String   @id @default(cuid())
+  title     String
+  file      Json // { url, publicId, fileName, size, mimeType }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relations
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([lessonId])
+  @@map("lesson_resources")
+}
+
+// ─── Course Tags ────────────────────────────────────────────────
+
+model CourseTag {
+  id   String @id @default(cuid())
+  name String
+
+  // Relations
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, name])
+  @@index([name])
+  @@map("course_tags")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  4. PURCHASES & PAYMENTS
+// ═══════════════════════════════════════════════════════════════
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique @default(cuid())
+  amount        Float
+  discount      Float       @default(0)
+  tax           Float       @default(0)
+  totalAmount   Float
+  status        OrderStatus @default(PENDING)
+  paymentId     String? // Razorpay / Stripe payment ID
+  paymentMethod String?
+  couponCode    String?
+  receipt       Json? // { invoiceUrl, details, ... }
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([courseId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model Enrollment {
+  id          String           @id @default(cuid())
+  status      EnrollmentStatus @default(ACTIVE)
+  progress    Float            @default(0) // overall % (0–100)
+  enrolledAt  DateTime         @default(now())
+  expiresAt   DateTime?
+  completedAt DateTime?
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([status])
+  @@map("enrollments")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  5. LESSON PROGRESS (self-marked completion)
+// ═══════════════════════════════════════════════════════════════
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  isCompleted Boolean   @default(false) // user marks this themselves
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@map("lesson_progress")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  6. REVIEWS & RATINGS
+// ═══════════════════════════════════════════════════════════════
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int // 1 to 5
+  comment   String?  @db.Text
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("reviews")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  7. WISHLIST & CART
+// ═══════════════════════════════════════════════════════════════
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("wishlists")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  8. BANNERS & PROMOTIONS
+// ═══════════════════════════════════════════════════════════════
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  image     Json // { url, publicId, ... }
+  link      String?
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("banners")
+}
+
+model Coupon {
+  id             String       @id @default(cuid())
+  code           String       @unique
+  description    String?
+  discountType   DiscountType
+  discountValue  Float
+  minOrderAmount Float?
+  maxUses        Int?
+  usedCount      Int          @default(0)
+  validFrom      DateTime
+  validTill      DateTime
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([code, isActive])
+  @@map("coupons")
+}
