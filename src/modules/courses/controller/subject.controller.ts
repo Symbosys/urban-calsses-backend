@@ -4,6 +4,7 @@ import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js"
 import { subjectValidation, updateSubjectValidation } from "../validation/subject.validation.js";
 import { removeUndefined } from "../../../utils/utils.js";
 import type { Prisma } from "../../../../generated/prisma/client.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 
 /**
  * @desc    Create a new subject
@@ -12,8 +13,17 @@ import type { Prisma } from "../../../../generated/prisma/client.js";
 export const createSubject = asyncHandler(async (req, res, next) => {
   const validation = subjectValidation.parse(req.body);
 
+  let iconData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "subjects");
+    iconData = { public_id, secure_url };
+  }
+
   const subject = await prisma.subject.create({
-    data: validation as Prisma.SubjectUncheckedCreateInput,
+    data: {
+      ...validation,
+      icon: iconData,
+    } as Prisma.SubjectUncheckedCreateInput,
     include: {
       course: {
         select: { title: true }
@@ -100,9 +110,21 @@ export const updateSubject = asyncHandler(async (req, res, next) => {
   const existing = await prisma.subject.findUnique({ where: { id } });
   if (!existing) return next(new ErrorResponse("Subject not found", 404));
 
+  let iconData = existing.icon;
+  if (req.file) {
+    if (existing.icon && (existing.icon as any).public_id) {
+      await deleteFromCloudinary((existing.icon as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "subjects");
+    iconData = { public_id, secure_url };
+  }
+
   const subject = await prisma.subject.update({
     where: { id },
-    data: removeUndefined(validation) as Prisma.SubjectUpdateInput,
+    data: {
+      ...removeUndefined(validation),
+      icon: iconData,
+    } as Prisma.SubjectUpdateInput,
   });
 
   return SuccessResponse(res, "Subject updated successfully", { subject });

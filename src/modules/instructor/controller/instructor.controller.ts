@@ -4,6 +4,7 @@ import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js"
 import { createInstructorValidation, updateInstructorValidation } from "../validation/instructor.validation.js";
 import { removeUndefined } from "../../../utils/utils.js";
 import type { Prisma } from "../../../../generated/prisma/client.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 
 /**
  * @desc    Get all instructors with pagination and search
@@ -100,15 +101,22 @@ export const createInstructor = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Instructor email already exists", 400));
   }
 
+  let avatarData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "instructors");
+    avatarData = { public_id, secure_url };
+  }
+
   const instructor = await prisma.instructor.create({
     data: {
       ...validation,
+      avatar: avatarData,
       account: {
         create: {
           role: "INSTRUCTOR",
         },
       },
-    } as Prisma.InstructorCreateInput,
+    } as any,
     include: {
       account: true,
     },
@@ -131,9 +139,22 @@ export const updateInstructor = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Instructor not found", 404));
   }
 
+  let avatarData = existing.avatar;
+  if (req.file) {
+    // Delete previous avatar if exists
+    if (existing.avatar && (existing.avatar as any).public_id) {
+      await deleteFromCloudinary((existing.avatar as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "instructors");
+    avatarData = { public_id, secure_url };
+  }
+
   const updatedInstructor = await prisma.instructor.update({
     where: { id },
-    data: removeUndefined(validation) as Prisma.InstructorUpdateInput,
+    data: {
+      ...removeUndefined(validation),
+      avatar: avatarData,
+    } as any,
     include: {
       account: true,
     },

@@ -4,6 +4,7 @@ import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js"
 import { createCourseValidation, updateCourseValidation } from "../validation/course.validation.js";
 import { slugify, removeUndefined } from "../../../utils/utils.js";
 import type { Prisma } from "../../../../generated/prisma/client.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 
 /**
  * @desc    Create a new course
@@ -20,12 +21,19 @@ export const createCourse = asyncHandler(async (req, res, next) => {
     slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
   }
 
+  let thumbnailData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "courses");
+    thumbnailData = { public_id, secure_url };
+  }
+
   const { instructorIds, tags, ...courseData } = validation;
 
   const course = await prisma.course.create({
     data: {
       ...removeUndefined(courseData),
       slug,
+      thumbnail: thumbnailData,
       instructors: instructorIds?.length
         ? {
             create: instructorIds.map((instructorId: string) => ({
@@ -40,7 +48,7 @@ export const createCourse = asyncHandler(async (req, res, next) => {
             })),
           }
         : undefined,
-    } as Prisma.CourseUncheckedCreateInput,
+    } as any,
     include: {
       subCategory: true,
       instructors: {
@@ -65,6 +73,7 @@ export const getAllCourses = asyncHandler(async (req, res, next) => {
   const limit = parseInt(req.query.limit as string) || 10;
   const search = (req.query.search as string) || "";
   const subCategoryId = req.query.subCategoryId as string;
+  const categoryId = req.query.categoryId as string;
   const status = req.query.status as any;
   const level = req.query.level as any;
   const isFeatured = req.query.isFeatured === "true" ? true : undefined;
@@ -80,6 +89,7 @@ export const getAllCourses = asyncHandler(async (req, res, next) => {
         ],
       },
       subCategoryId ? { subCategoryId } : {},
+      categoryId ? { subCategory: { categoryId } } : {},
       status ? { status } : {},
       level ? { level } : {},
       isFeatured !== undefined ? { isFeatured } : {},
@@ -252,6 +262,16 @@ export const updateCourse = asyncHandler(async (req, res, next) => {
     }
   }
 
+  let thumbnailData = existingCourse.thumbnail;
+  if (req.file) {
+    // Delete previous thumbnail if exists
+    if (existingCourse.thumbnail && (existingCourse.thumbnail as any).public_id) {
+      await deleteFromCloudinary((existingCourse.thumbnail as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "courses");
+    thumbnailData = { public_id, secure_url };
+  }
+
   const { instructorIds, tags, ...courseData } = validation;
 
   const updatedCourse = await prisma.course.update({
@@ -259,6 +279,7 @@ export const updateCourse = asyncHandler(async (req, res, next) => {
     data: {
       ...removeUndefined(courseData),
       slug,
+      thumbnail: thumbnailData,
       instructors:
         instructorIds !== undefined
           ? {
@@ -277,7 +298,7 @@ export const updateCourse = asyncHandler(async (req, res, next) => {
               })),
             }
           : undefined,
-    } as Prisma.CourseUncheckedUpdateInput,
+    } as any,
     include: {
       subCategory: true,
       instructors: {

@@ -22,6 +22,7 @@ import {
   toggleUserVerification, 
   toggleUserBlock 
 } from "../controller/user.controller.js";
+import { Upload } from "../../../middleware/multter.middleware.js";
 
 const router = Router();
 
@@ -34,9 +35,9 @@ router.patch("/users/:id/verify", toggleUserVerification);
 router.patch("/users/:id/block", toggleUserBlock);
 
 // Banner Management
-router.post("/banners", createBanner);
+router.post("/banners", Upload.single("image"), createBanner);
 router.get("/banners", getAllBanners);
-router.patch("/banners/:id", updateBanner);
+router.patch("/banners/:id", Upload.single("image"), updateBanner);
 router.delete("/banners/:id", deleteBanner);
 
 // Coupon Management

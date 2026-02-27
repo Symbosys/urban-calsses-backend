@@ -15,6 +15,10 @@ import reviewRoute from "./modules/user/routes/review.route.js";
 import wishlistRoute from "./modules/user/routes/wishlist.route.js";
 import adminRoute from "./modules/admin/routes/admin.route.js";
 import lessonResourceRoute from "./modules/courses/routes/lesson-resource.route.js";
+import resultRoute from "./modules/results/routes/result.routes.js";
+import offlineCenterRoute from "./modules/offlineCenter/routes/offlineCenter.routes.js";
+import blogRoute from "./modules/blog/routes/blog.routes.js";
+import userGoalRoute from "./modules/user/routes/userGoal.route.js";
 
 
 const app = express();
@@ -26,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use("/api/v1/user/goals", userGoalRoute);
 app.use("/api/v1/user", authRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/courses", courseRoute);
@@ -40,6 +45,9 @@ app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/wishlist", wishlistRoute);
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/lessons/resources", lessonResourceRoute);
+app.use("/api/v1/results", resultRoute);
+app.use("/api/v1/offline-centers", offlineCenterRoute);
+app.use("/api/v1/blogs", blogRoute);
 
 
 

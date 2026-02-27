@@ -2,6 +2,7 @@ import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../middleware/error.middleware.js";
 import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js";
 import { createBannerValidation, updateBannerValidation } from "../validation/banner.validation.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 
 /**
  * @desc    Create a new banner
@@ -10,10 +11,16 @@ import { createBannerValidation, updateBannerValidation } from "../validation/ba
  */
 export const createBanner = asyncHandler(async (req, res, next) => {
   const validation = createBannerValidation.parse(req.body);
+
+  let imageData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "banners");
+    imageData = { public_id, secure_url };
+  }
   
   const createData: any = {
     title: validation.title,
-    image: validation.image,
+    image: imageData,
     order: validation.order || 0,
     isActive: validation.isActive !== undefined ? validation.isActive : true
   };
@@ -53,11 +60,22 @@ export const updateBanner = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Banner not found", 404));
   }
 
+  let imageData = existingBanner.image;
+  if (req.file) {
+    // Delete previous image if exists
+    if (existingBanner.image && (existingBanner.image as any).public_id) {
+      await deleteFromCloudinary((existingBanner.image as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "banners");
+    imageData = { public_id, secure_url };
+  }
+
   const updateData: any = {};
   if (validation.title !== undefined) updateData.title = validation.title;
   if (validation.link !== undefined) updateData.link = validation.link;
   if (validation.order !== undefined) updateData.order = validation.order;
   if (validation.isActive !== undefined) updateData.isActive = validation.isActive;
+  updateData.image = imageData;
 
   const updatedBanner = await prisma.banner.update({
     where: { id },

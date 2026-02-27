@@ -172,6 +172,7 @@ model Category {
 
   // Relations
   subCategories SubCategory[]
+  results       Result[]
 
   @@map("categories")
 }
@@ -518,4 +519,75 @@ model Coupon {
 
   @@index([code, isActive])
   @@map("coupons")
+}
+
+model Result {
+  id          String  @id @default(cuid())
+  studentName String
+  rank        String
+  examName    String
+  year        Int
+  image       Json? // { url, publicId }
+  college     String?
+  quote       String? @db.Text
+  isFeatured  Boolean @default(false)
+
+  // Relations
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("results")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  9. OFFLINE CENTERS
+// ═══════════════════════════════════════════════════════════════
+
+model OfflineCenter {
+  id          String  @id @default(cuid())
+  name        String
+  city        String
+  address     String  @db.Text
+  phone       String?
+  email       String?
+  image       Json? // { url, publicId }
+  locationUrl String? // Google Maps link
+  isActive    Boolean @default(true)
+  order       Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([city])
+  @@index([isActive])
+  @@map("offline_centers")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  10. BLOGS
+// ═══════════════════════════════════════════════════════════════
+
+model Blog {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String    @db.Text
+  excerpt     String?   @db.Text
+  thumbnail   Json? // { url, publicId }
+  category    String?
+  tags        String[]  @default([])
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  authorName  String?
+  authorImage Json? // { url, publicId }
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+  @@map("blogs")
 }

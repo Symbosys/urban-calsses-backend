@@ -7,12 +7,14 @@ import {
   deleteSubject,
 } from "../controller/subject.controller.js";
 
+import { Upload } from "../../../middleware/multter.middleware.js";
+
 const router = Router();
 
-router.post("/", createSubject);
+router.post("/", Upload.single("icon"), createSubject);
 router.get("/", getAllSubjects);
 router.get("/:id", getSubjectById);
-router.put("/:id", updateSubject);
+router.put("/:id", Upload.single("icon"), updateSubject);
 router.delete("/:id", deleteSubject);
 
 export default router;

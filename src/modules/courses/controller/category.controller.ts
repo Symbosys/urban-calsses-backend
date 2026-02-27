@@ -9,15 +9,12 @@ import {
 } from "../validation/category.validation.js";
 import { slugify, removeUndefined } from "../../../utils/utils.js";
 import type { Prisma } from "../../../../generated/prisma/client.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 
 // ==========================================
 // CATEGORY CONTROLLERS
 // ==========================================
 
-/**
- * @desc    Create a new category
- * @route   POST /api/v1/categories
- */
 export const createCategory = asyncHandler(async (req, res, next) => {
   const validation = categoryValidation.parse(req.body);
   
@@ -25,10 +22,17 @@ export const createCategory = asyncHandler(async (req, res, next) => {
   const existing = await prisma.category.findFirst({ where: { slug } });
   if (existing) slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
 
+  let iconData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "categories");
+    iconData = { public_id, secure_url };
+  }
+
   const category = await prisma.category.create({
     data: {
       ...validation,
       slug,
+      icon: iconData,
     } as Prisma.CategoryCreateInput,
   });
 
@@ -72,10 +76,6 @@ export const getCategoryById = asyncHandler(async (req, res, next) => {
   return SuccessResponse(res, "Category fetched successfully", { category });
 });
 
-/**
- * @desc    Update category
- * @route   PUT /api/v1/categories/:id
- */
 export const updateCategory = asyncHandler(async (req, res, next) => {
   const id = req.params.id as string;
   const validation = updateCategoryValidation.parse(req.body);
@@ -90,11 +90,21 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
     if (slugExists) slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
   }
 
+  let iconData = existing.icon;
+  if (req.file) {
+    if (existing.icon && (existing.icon as any).public_id) {
+      await deleteFromCloudinary((existing.icon as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "categories");
+    iconData = { public_id, secure_url };
+  }
+
   const category = await prisma.category.update({
     where: { id },
     data: {
       ...removeUndefined(validation),
       slug,
+      icon: iconData,
     } as Prisma.CategoryUpdateInput,
   });
 
@@ -115,10 +125,6 @@ export const deleteCategory = asyncHandler(async (req, res, next) => {
 // SUB-CATEGORY CONTROLLERS
 // ==========================================
 
-/**
- * @desc    Create a new sub-category
- * @route   POST /api/v1/sub-categories
- */
 export const createSubCategory = asyncHandler(async (req, res, next) => {
   const validation = subCategoryValidation.parse(req.body);
   
@@ -126,10 +132,17 @@ export const createSubCategory = asyncHandler(async (req, res, next) => {
   const existing = await prisma.subCategory.findFirst({ where: { slug } });
   if (existing) slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
 
+  let iconData = null;
+  if (req.file) {
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "sub-categories");
+    iconData = { public_id, secure_url };
+  }
+
   const subCategory = await prisma.subCategory.create({
     data: {
       ...validation,
       slug,
+      icon: iconData,
     } as Prisma.SubCategoryUncheckedCreateInput,
   });
 
@@ -174,10 +187,6 @@ export const getSubCategoryById = asyncHandler(async (req, res, next) => {
   return SuccessResponse(res, "Sub-category fetched successfully", { subCategory });
 });
 
-/**
- * @desc    Update sub-category
- * @route   PUT /api/v1/sub-categories/:id
- */
 export const updateSubCategory = asyncHandler(async (req, res, next) => {
   const id = req.params.id as string;
   const validation = updateSubCategoryValidation.parse(req.body);
@@ -192,11 +201,21 @@ export const updateSubCategory = asyncHandler(async (req, res, next) => {
     if (slugExists) slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
   }
 
+  let iconData = existing.icon;
+  if (req.file) {
+    if (existing.icon && (existing.icon as any).public_id) {
+      await deleteFromCloudinary((existing.icon as any).public_id);
+    }
+    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "sub-categories");
+    iconData = { public_id, secure_url };
+  }
+
   const subCategory = await prisma.subCategory.update({
     where: { id },
     data: {
       ...removeUndefined(validation),
       slug,
+      icon: iconData,
     } as Prisma.SubCategoryUncheckedUpdateInput,
   });
 

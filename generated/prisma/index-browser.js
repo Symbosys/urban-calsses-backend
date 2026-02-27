@@ -138,6 +138,20 @@ exports.Prisma.UserScalarFieldEnum = {
   accountId: 'accountId'
 };
 
+exports.Prisma.PersonalInformationScalarFieldEnum = {
+  id: 'id',
+  gender: 'gender',
+  dob: 'dob',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  pincode: 'pincode',
+  country: 'country',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.InstructorScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -369,6 +383,53 @@ exports.Prisma.CouponScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ResultScalarFieldEnum = {
+  id: 'id',
+  studentName: 'studentName',
+  rank: 'rank',
+  examName: 'examName',
+  year: 'year',
+  image: 'image',
+  college: 'college',
+  quote: 'quote',
+  isFeatured: 'isFeatured',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OfflineCenterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  city: 'city',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  image: 'image',
+  locationUrl: 'locationUrl',
+  isActive: 'isActive',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  excerpt: 'excerpt',
+  thumbnail: 'thumbnail',
+  category: 'category',
+  tags: 'tags',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  authorName: 'authorName',
+  authorImage: 'authorImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -448,6 +509,7 @@ exports.DiscountType = exports.$Enums.DiscountType = {
 exports.Prisma.ModelName = {
   Account: 'Account',
   User: 'User',
+  PersonalInformation: 'PersonalInformation',
   Instructor: 'Instructor',
   Admin: 'Admin',
   Otp: 'Otp',
@@ -467,7 +529,10 @@ exports.Prisma.ModelName = {
   Review: 'Review',
   Wishlist: 'Wishlist',
   Banner: 'Banner',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  Result: 'Result',
+  OfflineCenter: 'OfflineCenter',
+  Blog: 'Blog'
 };
 
 /**
