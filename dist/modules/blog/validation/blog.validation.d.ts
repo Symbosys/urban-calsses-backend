@@ -1,0 +1,40 @@
+import { z } from "zod";
+export declare const blogValidation: z.ZodObject<{
+    title: z.ZodString;
+    slug: z.ZodString;
+    content: z.ZodString;
+    excerpt: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    thumbnail: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+    }, z.core.$strip>>>;
+    category: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+    isPublished: z.ZodOptional<z.ZodBoolean>;
+    publishedAt: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    authorName: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    authorImage: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+    }, z.core.$strip>>>;
+}, z.core.$strip>;
+export declare const updateBlogValidation: z.ZodObject<{
+    title: z.ZodOptional<z.ZodString>;
+    slug: z.ZodOptional<z.ZodString>;
+    content: z.ZodOptional<z.ZodString>;
+    excerpt: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodString>>>;
+    thumbnail: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+    }, z.core.$strip>>>>;
+    category: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodString>>>;
+    tags: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodString>>>;
+    isPublished: z.ZodOptional<z.ZodOptional<z.ZodBoolean>>;
+    publishedAt: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodString>>>;
+    authorName: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodString>>>;
+    authorImage: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+    }, z.core.$strip>>>>;
+}, z.core.$strip>;
+//# sourceMappingURL=blog.validation.d.ts.map

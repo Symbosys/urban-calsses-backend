@@ -1,0 +1,60 @@
+import { z } from "zod";
+export declare const lessonValidation: z.ZodObject<{
+    title: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    type: z.ZodDefault<z.ZodEnum<{
+        VIDEO: "VIDEO";
+        PDF: "PDF";
+        QUIZ: "QUIZ";
+        TEXT: "TEXT";
+        LIVE: "LIVE";
+    }>>;
+    content: z.ZodOptional<z.ZodString>;
+    video: z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+        duration: z.ZodOptional<z.ZodNumber>;
+        quality: z.ZodOptional<z.ZodString>;
+    }, z.core.$strip>>;
+    attachments: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+        name: z.ZodString;
+        type: z.ZodString;
+        size: z.ZodNumber;
+    }, z.core.$strip>>>;
+    duration: z.ZodDefault<z.ZodNumber>;
+    order: z.ZodDefault<z.ZodNumber>;
+    isFree: z.ZodDefault<z.ZodBoolean>;
+    sectionId: z.ZodString;
+}, z.core.$strip>;
+export declare const updateLessonValidation: z.ZodObject<{
+    title: z.ZodOptional<z.ZodString>;
+    description: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    type: z.ZodOptional<z.ZodDefault<z.ZodEnum<{
+        VIDEO: "VIDEO";
+        PDF: "PDF";
+        QUIZ: "QUIZ";
+        TEXT: "TEXT";
+        LIVE: "LIVE";
+    }>>>;
+    content: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    video: z.ZodOptional<z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+        duration: z.ZodOptional<z.ZodNumber>;
+        quality: z.ZodOptional<z.ZodString>;
+    }, z.core.$strip>>>;
+    attachments: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodObject<{
+        url: z.ZodString;
+        publicId: z.ZodString;
+        name: z.ZodString;
+        type: z.ZodString;
+        size: z.ZodNumber;
+    }, z.core.$strip>>>>;
+    duration: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+    order: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+    isFree: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+    sectionId: z.ZodOptional<z.ZodString>;
+}, z.core.$strip>;
+//# sourceMappingURL=lesson.validation.d.ts.map

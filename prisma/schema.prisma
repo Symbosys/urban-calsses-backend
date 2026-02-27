@@ -225,7 +225,7 @@ model Course {
   slug             String       @unique
   shortDescription String?
   description      String?      @db.Text
-  thumbnail        Json? // { url, publicId, ... }
+  thumbnail        Json? // { secure_url, public_id, ... }
   previewVideo     Json? // { url, publicId, duration, ... }
   price            Float        @default(0)
   discountPrice    Float?
@@ -492,7 +492,7 @@ model Wishlist {
 model Banner {
   id        String   @id @default(cuid())
   title     String
-  image     Json // { url, publicId, ... }
+  image     Json // { secure_url, public_id, ... }
   link      String?
   isActive  Boolean  @default(true)
   order     Int      @default(0)
@@ -576,13 +576,13 @@ model Blog {
   slug        String    @unique
   content     String    @db.Text
   excerpt     String?   @db.Text
-  thumbnail   Json? // { url, publicId }
+  thumbnail   Json? // { secure_url, public_id }
   category    String?
   tags        String[]  @default([])
   isPublished Boolean   @default(false)
   publishedAt DateTime?
   authorName  String?
-  authorImage Json? // { url, publicId }
+  authorImage Json? // { secure_url, public_id }
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

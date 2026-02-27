@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { createLesson, getAllLessons, getLessonById, updateLesson, deleteLesson, } from "../controller/lesson.controller.js";
+const router = Router();
+router.post("/", createLesson);
+router.get("/", getAllLessons);
+router.get("/:id", getLessonById);
+router.put("/:id", updateLesson);
+router.delete("/:id", deleteLesson);
+export default router;
+//# sourceMappingURL=lesson.route.js.map
