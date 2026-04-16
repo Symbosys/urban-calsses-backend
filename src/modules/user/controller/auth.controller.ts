@@ -92,6 +92,3 @@ export const verifyOtpController = asyncHandler(async (req, res, next) => {
 
   return SuccessResponse(res, "Login successful", { user, token }, 200);
 });
-
-
-

@@ -19,7 +19,7 @@ export const createOfflineCenter = asyncHandler(async (req, res, next) => {
     imageData = { public_id, secure_url };
   }
 
-  const center = await (prisma as any).offlineCenter.create({
+  const center = await prisma.offlineCenter.create({
     data: {
       ...validation,
       image: imageData,
@@ -42,7 +42,7 @@ export const getAllOfflineCenters = asyncHandler(async (req, res, next) => {
   if (city) where.city = city.toLowerCase();
   if (req.query.isActive) where.isActive = isActive;
 
-  const centers = await (prisma as any).offlineCenter.findMany({
+  const centers = await prisma.offlineCenter.findMany({
     where,
     orderBy: { order: "asc" },
   });
@@ -57,7 +57,7 @@ export const getAllOfflineCenters = asyncHandler(async (req, res, next) => {
  */
 export const getOfflineCenterById = asyncHandler(async (req, res, next) => {
   const id = req.params.id as string;
-  const center = await (prisma as any).offlineCenter.findUnique({
+  const center = await prisma.offlineCenter.findUnique({
     where: { id },
   });
 
@@ -75,7 +75,7 @@ export const updateOfflineCenter = asyncHandler(async (req, res, next) => {
   const id = req.params.id as string;
   const validation = updateOfflineCenterValidation.parse(req.body);
 
-  const existing = await (prisma as any).offlineCenter.findUnique({ where: { id } });
+  const existing = await prisma.offlineCenter.findUnique({ where: { id } });
   if (!existing) return next(new ErrorResponse("Offline center not found", 404));
 
   let imageData = existing.image;
@@ -90,7 +90,7 @@ export const updateOfflineCenter = asyncHandler(async (req, res, next) => {
 
   const updateData = removeUndefined(validation);
 
-  const center = await (prisma as any).offlineCenter.update({
+  const center = await prisma.offlineCenter.update({
     where: { id },
     data: {
       ...updateData,
@@ -109,10 +109,10 @@ export const updateOfflineCenter = asyncHandler(async (req, res, next) => {
 export const deleteOfflineCenter = asyncHandler(async (req, res, next) => {
   const id = req.params.id as string;
   
-  const existing = await (prisma as any).offlineCenter.findUnique({ where: { id } });
+  const existing = await prisma.offlineCenter.findUnique({ where: { id } });
   if (!existing) return next(new ErrorResponse("Offline center not found", 404));
 
-  await (prisma as any).offlineCenter.delete({ where: { id } });
+  await prisma.offlineCenter.delete({ where: { id } });
   
   return SuccessResponse(res, "Offline center deleted successfully", null);
 });

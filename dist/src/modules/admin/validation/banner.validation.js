@@ -1,10 +1,9 @@
 import { z } from "zod";
-export const createBannerValidation = z.object({
+export const bannerValidation = z.object({
     title: z.string().min(1, "Title is required"),
-    image: z.any().optional(),
-    link: z.string().url("Invalid link URL").or(z.string().length(0)).optional().nullable(),
-    order: z.coerce.number().int().optional(),
-    isActive: z.coerce.boolean().optional(),
+    link: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+    order: z.coerce.number().int().default(0),
+    isActive: z.coerce.boolean().default(true),
 });
-export const updateBannerValidation = createBannerValidation.partial();
+export const updateBannerValidation = bannerValidation.partial();
 //# sourceMappingURL=banner.validation.js.map

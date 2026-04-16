@@ -259,6 +259,7 @@ export type OrderWhereInput = {
     courseId?: Prisma.StringFilter<"Order"> | string;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>;
+    offlineBooking?: Prisma.XOR<Prisma.OfflineBookingNullableScalarRelationFilter, Prisma.OfflineBookingWhereInput> | null;
 };
 export type OrderOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -278,6 +279,7 @@ export type OrderOrderByWithRelationInput = {
     courseId?: Prisma.SortOrder;
     user?: Prisma.UserOrderByWithRelationInput;
     course?: Prisma.CourseOrderByWithRelationInput;
+    offlineBooking?: Prisma.OfflineBookingOrderByWithRelationInput;
 };
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -300,6 +302,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
     courseId?: Prisma.StringFilter<"Order"> | string;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>;
+    offlineBooking?: Prisma.XOR<Prisma.OfflineBookingNullableScalarRelationFilter, Prisma.OfflineBookingWhereInput> | null;
 }, "id" | "orderNumber">;
 export type OrderOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -359,6 +362,7 @@ export type OrderCreateInput = {
     updatedAt?: Date | string;
     user: Prisma.UserCreateNestedOneWithoutOrdersInput;
     course: Prisma.CourseCreateNestedOneWithoutOrdersInput;
+    offlineBooking?: Prisma.OfflineBookingCreateNestedOneWithoutOrderInput;
 };
 export type OrderUncheckedCreateInput = {
     id?: string;
@@ -376,6 +380,7 @@ export type OrderUncheckedCreateInput = {
     updatedAt?: Date | string;
     userId: string;
     courseId: string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedCreateNestedOneWithoutOrderInput;
 };
 export type OrderUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -393,6 +398,7 @@ export type OrderUpdateInput = {
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput;
     course?: Prisma.CourseUpdateOneRequiredWithoutOrdersNestedInput;
+    offlineBooking?: Prisma.OfflineBookingUpdateOneWithoutOrderNestedInput;
 };
 export type OrderUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -410,6 +416,7 @@ export type OrderUncheckedUpdateInput = {
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     courseId?: Prisma.StringFieldUpdateOperationsInput | string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedUpdateOneWithoutOrderNestedInput;
 };
 export type OrderCreateManyInput = {
     id?: string;
@@ -529,6 +536,10 @@ export type OrderSumOrderByAggregateInput = {
     tax?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
 };
+export type OrderNullableScalarRelationFilter = {
+    is?: Prisma.OrderWhereInput | null;
+    isNot?: Prisma.OrderWhereInput | null;
+};
 export type OrderCreateNestedManyWithoutUserInput = {
     create?: Prisma.XOR<Prisma.OrderCreateWithoutUserInput, Prisma.OrderUncheckedCreateWithoutUserInput> | Prisma.OrderCreateWithoutUserInput[] | Prisma.OrderUncheckedCreateWithoutUserInput[];
     connectOrCreate?: Prisma.OrderCreateOrConnectWithoutUserInput | Prisma.OrderCreateOrConnectWithoutUserInput[];
@@ -608,6 +619,20 @@ export type OrderUncheckedUpdateManyWithoutCourseNestedInput = {
 export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus;
 };
+export type OrderCreateNestedOneWithoutOfflineBookingInput = {
+    create?: Prisma.XOR<Prisma.OrderCreateWithoutOfflineBookingInput, Prisma.OrderUncheckedCreateWithoutOfflineBookingInput>;
+    connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOfflineBookingInput;
+    connect?: Prisma.OrderWhereUniqueInput;
+};
+export type OrderUpdateOneWithoutOfflineBookingNestedInput = {
+    create?: Prisma.XOR<Prisma.OrderCreateWithoutOfflineBookingInput, Prisma.OrderUncheckedCreateWithoutOfflineBookingInput>;
+    connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOfflineBookingInput;
+    upsert?: Prisma.OrderUpsertWithoutOfflineBookingInput;
+    disconnect?: Prisma.OrderWhereInput | boolean;
+    delete?: Prisma.OrderWhereInput | boolean;
+    connect?: Prisma.OrderWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutOfflineBookingInput, Prisma.OrderUpdateWithoutOfflineBookingInput>, Prisma.OrderUncheckedUpdateWithoutOfflineBookingInput>;
+};
 export type OrderCreateWithoutUserInput = {
     id?: string;
     orderNumber?: string;
@@ -623,6 +648,7 @@ export type OrderCreateWithoutUserInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     course: Prisma.CourseCreateNestedOneWithoutOrdersInput;
+    offlineBooking?: Prisma.OfflineBookingCreateNestedOneWithoutOrderInput;
 };
 export type OrderUncheckedCreateWithoutUserInput = {
     id?: string;
@@ -639,6 +665,7 @@ export type OrderUncheckedCreateWithoutUserInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     courseId: string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedCreateNestedOneWithoutOrderInput;
 };
 export type OrderCreateOrConnectWithoutUserInput = {
     where: Prisma.OrderWhereUniqueInput;
@@ -696,6 +723,7 @@ export type OrderCreateWithoutCourseInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     user: Prisma.UserCreateNestedOneWithoutOrdersInput;
+    offlineBooking?: Prisma.OfflineBookingCreateNestedOneWithoutOrderInput;
 };
 export type OrderUncheckedCreateWithoutCourseInput = {
     id?: string;
@@ -712,6 +740,7 @@ export type OrderUncheckedCreateWithoutCourseInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     userId: string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedCreateNestedOneWithoutOrderInput;
 };
 export type OrderCreateOrConnectWithoutCourseInput = {
     where: Prisma.OrderWhereUniqueInput;
@@ -733,6 +762,87 @@ export type OrderUpdateWithWhereUniqueWithoutCourseInput = {
 export type OrderUpdateManyWithWhereWithoutCourseInput = {
     where: Prisma.OrderScalarWhereInput;
     data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutCourseInput>;
+};
+export type OrderCreateWithoutOfflineBookingInput = {
+    id?: string;
+    orderNumber?: string;
+    amount: number;
+    discount?: number;
+    tax?: number;
+    totalAmount: number;
+    status?: $Enums.OrderStatus;
+    paymentId?: string | null;
+    paymentMethod?: string | null;
+    couponCode?: string | null;
+    receipt?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: Prisma.UserCreateNestedOneWithoutOrdersInput;
+    course: Prisma.CourseCreateNestedOneWithoutOrdersInput;
+};
+export type OrderUncheckedCreateWithoutOfflineBookingInput = {
+    id?: string;
+    orderNumber?: string;
+    amount: number;
+    discount?: number;
+    tax?: number;
+    totalAmount: number;
+    status?: $Enums.OrderStatus;
+    paymentId?: string | null;
+    paymentMethod?: string | null;
+    couponCode?: string | null;
+    receipt?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    userId: string;
+    courseId: string;
+};
+export type OrderCreateOrConnectWithoutOfflineBookingInput = {
+    where: Prisma.OrderWhereUniqueInput;
+    create: Prisma.XOR<Prisma.OrderCreateWithoutOfflineBookingInput, Prisma.OrderUncheckedCreateWithoutOfflineBookingInput>;
+};
+export type OrderUpsertWithoutOfflineBookingInput = {
+    update: Prisma.XOR<Prisma.OrderUpdateWithoutOfflineBookingInput, Prisma.OrderUncheckedUpdateWithoutOfflineBookingInput>;
+    create: Prisma.XOR<Prisma.OrderCreateWithoutOfflineBookingInput, Prisma.OrderUncheckedCreateWithoutOfflineBookingInput>;
+    where?: Prisma.OrderWhereInput;
+};
+export type OrderUpdateToOneWithWhereWithoutOfflineBookingInput = {
+    where?: Prisma.OrderWhereInput;
+    data: Prisma.XOR<Prisma.OrderUpdateWithoutOfflineBookingInput, Prisma.OrderUncheckedUpdateWithoutOfflineBookingInput>;
+};
+export type OrderUpdateWithoutOfflineBookingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    orderNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+    amount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    tax?: Prisma.FloatFieldUpdateOperationsInput | number;
+    totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    receipt?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput;
+    course?: Prisma.CourseUpdateOneRequiredWithoutOrdersNestedInput;
+};
+export type OrderUncheckedUpdateWithoutOfflineBookingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    orderNumber?: Prisma.StringFieldUpdateOperationsInput | string;
+    amount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    tax?: Prisma.FloatFieldUpdateOperationsInput | number;
+    totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number;
+    status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    receipt?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    courseId?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type OrderCreateManyUserInput = {
     id?: string;
@@ -765,6 +875,7 @@ export type OrderUpdateWithoutUserInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     course?: Prisma.CourseUpdateOneRequiredWithoutOrdersNestedInput;
+    offlineBooking?: Prisma.OfflineBookingUpdateOneWithoutOrderNestedInput;
 };
 export type OrderUncheckedUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -781,6 +892,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     courseId?: Prisma.StringFieldUpdateOperationsInput | string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedUpdateOneWithoutOrderNestedInput;
 };
 export type OrderUncheckedUpdateManyWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -829,6 +941,7 @@ export type OrderUpdateWithoutCourseInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput;
+    offlineBooking?: Prisma.OfflineBookingUpdateOneWithoutOrderNestedInput;
 };
 export type OrderUncheckedUpdateWithoutCourseInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -845,6 +958,7 @@ export type OrderUncheckedUpdateWithoutCourseInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    offlineBooking?: Prisma.OfflineBookingUncheckedUpdateOneWithoutOrderNestedInput;
 };
 export type OrderUncheckedUpdateManyWithoutCourseInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -880,6 +994,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     courseId?: boolean;
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>;
+    offlineBooking?: boolean | Prisma.Order$offlineBookingArgs<ExtArgs>;
 }, ExtArgs["result"]["order"]>;
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -940,6 +1055,7 @@ export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>;
+    offlineBooking?: boolean | Prisma.Order$offlineBookingArgs<ExtArgs>;
 };
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
@@ -954,6 +1070,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     objects: {
         user: Prisma.$UserPayload<ExtArgs>;
         course: Prisma.$CoursePayload<ExtArgs>;
+        offlineBooking: Prisma.$OfflineBookingPayload<ExtArgs> | null;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1302,6 +1419,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
     readonly [Symbol.toStringTag]: "PrismaPromise";
     user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    offlineBooking<T extends Prisma.Order$offlineBookingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$offlineBookingArgs<ExtArgs>>): Prisma.Prisma__OfflineBookingClient<runtime.Types.Result.GetResult<Prisma.$OfflineBookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1719,6 +1837,24 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
      * Limit how many Orders to delete.
      */
     limit?: number;
+};
+/**
+ * Order.offlineBooking
+ */
+export type Order$offlineBookingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineBooking
+     */
+    select?: Prisma.OfflineBookingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the OfflineBooking
+     */
+    omit?: Prisma.OfflineBookingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.OfflineBookingInclude<ExtArgs> | null;
+    where?: Prisma.OfflineBookingWhereInput;
 };
 /**
  * Order without action

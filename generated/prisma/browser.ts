@@ -127,3 +127,28 @@ export type Banner = Prisma.BannerModel
  * 
  */
 export type Coupon = Prisma.CouponModel
+/**
+ * Model Result
+ * 
+ */
+export type Result = Prisma.ResultModel
+/**
+ * Model OfflineCenter
+ * 
+ */
+export type OfflineCenter = Prisma.OfflineCenterModel
+/**
+ * Model Blog
+ * 
+ */
+export type Blog = Prisma.BlogModel
+/**
+ * Model OfflineBatch
+ * 
+ */
+export type OfflineBatch = Prisma.OfflineBatchModel
+/**
+ * Model OfflineBooking
+ * 
+ */
+export type OfflineBooking = Prisma.OfflineBookingModel

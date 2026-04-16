@@ -353,6 +353,61 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get coupon(): Prisma.CouponDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    /**
+     * `prisma.result`: Exposes CRUD operations for the **Result** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Results
+      * const results = await prisma.result.findMany()
+      * ```
+      */
+    get result(): Prisma.ResultDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.offlineCenter`: Exposes CRUD operations for the **OfflineCenter** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OfflineCenters
+      * const offlineCenters = await prisma.offlineCenter.findMany()
+      * ```
+      */
+    get offlineCenter(): Prisma.OfflineCenterDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.blog`: Exposes CRUD operations for the **Blog** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Blogs
+      * const blogs = await prisma.blog.findMany()
+      * ```
+      */
+    get blog(): Prisma.BlogDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.offlineBatch`: Exposes CRUD operations for the **OfflineBatch** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OfflineBatches
+      * const offlineBatches = await prisma.offlineBatch.findMany()
+      * ```
+      */
+    get offlineBatch(): Prisma.OfflineBatchDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.offlineBooking`: Exposes CRUD operations for the **OfflineBooking** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OfflineBookings
+      * const offlineBookings = await prisma.offlineBooking.findMany()
+      * ```
+      */
+    get offlineBooking(): Prisma.OfflineBookingDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(): PrismaClientConstructor;
 //# sourceMappingURL=class.d.ts.map

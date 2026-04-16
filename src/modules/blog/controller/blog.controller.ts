@@ -12,11 +12,12 @@ import { removeUndefined } from "../../../utils/utils.js";
 export const createBlog = asyncHandler(async (req, res, next) => {
   const validation = blogValidation.parse(req.body);
 
-  const blog = await (prisma as any).blog.create({
+  const { publishedAt: _publishedAt, ...rest } = validation;
+  const blog = await prisma.blog.create({
     data: {
-      ...validation,
+      ...removeUndefined(rest),
       publishedAt: validation.isPublished ? new Date() : null,
-    },
+    } as any,
   });
 
   return SuccessResponse(res, "Blog created successfully", { blog }, 201);
@@ -40,7 +41,7 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
     ];
   }
 
-  const blogs = await (prisma as any).blog.findMany({
+  const blogs = await prisma.blog.findMany({
     where,
     orderBy: { createdAt: "desc" },
   });
@@ -54,9 +55,9 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
  * @access  Public
  */
 export const getBlog = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
-  const blog = await (prisma as any).blog.findUnique({
+  const blog = await prisma.blog.findUnique({
     where: { id },
   });
 
@@ -71,10 +72,10 @@ export const getBlog = asyncHandler(async (req, res, next) => {
  * @access  Admin/Instructor
  */
 export const updateBlog = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const validation = updateBlogValidation.parse(req.body);
 
-  const existingBlog = await (prisma as any).blog.findUnique({ where: { id } });
+  const existingBlog = await prisma.blog.findUnique({ where: { id } });
   if (!existingBlog) return next(new ErrorResponse("Blog not found", 404));
 
   // Handle publishedAt logic
@@ -83,12 +84,14 @@ export const updateBlog = asyncHandler(async (req, res, next) => {
     publishedAt = new Date();
   }
 
-  const blog = await (prisma as any).blog.update({
+  const { publishedAt: _publishedAt, ...rest } = validation;
+
+  const blog = await prisma.blog.update({
     where: { id },
     data: {
-      ...removeUndefined(validation),
+      ...removeUndefined(rest),
       publishedAt,
-    },
+    } as any,
   });
 
   return SuccessResponse(res, "Blog updated successfully", { blog });
@@ -100,12 +103,12 @@ export const updateBlog = asyncHandler(async (req, res, next) => {
  * @access  Admin
  */
 export const deleteBlog = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
-  const existing = await (prisma as any).blog.findUnique({ where: { id } });
+  const existing = await prisma.blog.findUnique({ where: { id } });
   if (!existing) return next(new ErrorResponse("Blog not found", 404));
 
-  await (prisma as any).blog.delete({
+  await prisma.blog.delete({
     where: { id },
   });
 

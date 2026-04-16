@@ -1,24 +1,30 @@
 import { z } from "zod";
-import { DiscountType } from "../../../../generated/prisma/client.js";
 
-export const createCouponValidation = z.object({
-  code: z.string().min(3).max(20).transform(val => val.toUpperCase()),
-  description: z.string().optional(),
-  discountType: z.nativeEnum(DiscountType),
-  discountValue: z.number().positive(),
-  minOrderAmount: z.number().nonnegative().optional(),
-  maxUses: z.number().int().positive().optional(),
-  validFrom: z.string().transform(val => new Date(val)),
-  validTill: z.string().transform(val => new Date(val)),
-  isActive: z.boolean().optional(),
+export const couponBase = z.object({
+    code: z.string().min(1, "Coupon code is required").toUpperCase(),
+    description: z.string().optional(),
+    discountType: z.enum(["PERCENTAGE", "FIXED"]),
+    discountValue: z.coerce.number().positive("Discount value must be positive"),
+    validFrom: z.coerce.date(),
+    validTill: z.coerce.date(),
+    minOrderAmount: z.coerce.number().min(0).optional(),
+    maxUses: z.coerce.number().int().min(0).optional().nullable(),
+    isActive: z.coerce.boolean().default(true),
 });
 
-export const updateCouponValidation = z.object({
-  description: z.string().optional(),
-  discountValue: z.number().positive().optional(),
-  minOrderAmount: z.number().nonnegative().optional(),
-  maxUses: z.number().int().positive().optional(),
-  validFrom: z.string().transform(val => new Date(val)).optional(),
-  validTill: z.string().transform(val => new Date(val)).optional(),
-  isActive: z.boolean().optional(),
+export const couponValidation = couponBase.refine((data) => data.validTill > data.validFrom, {
+    message: "Valid Till must be after Valid From",
+    path: ["validTill"],
 });
+
+export const updateCouponValidation = couponBase.partial().refine((data) => {
+    if (data.validFrom && data.validTill) {
+        return data.validTill > data.validFrom;
+    }
+    return true;
+}, {
+    message: "Valid Till must be after Valid From",
+    path: ["validTill"],
+});
+
+

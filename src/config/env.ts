@@ -22,7 +22,14 @@ const ENV = {
     cloud_api_secret: process.env.CLOUD_API_SECRET,
     cloud_folder: process.env.CLOUD_FOLDER,
 
+    // Razorpay Credentials
+    RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
+    RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
+
     mode: process.env.NODE_ENV,
+
+
+    
 }
 
 export default ENV;

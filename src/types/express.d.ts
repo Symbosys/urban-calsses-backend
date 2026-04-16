@@ -1,11 +1,10 @@
-export declare global {
-    namespace Express {
-        interface Request {
-            school: {
-                id: string;
-                email: string;
-                name: string;
-            };
-        }
+import { Express } from "express";
+
+declare global {
+  namespace Express {
+    interface Request {
+      file?: any;
+      files?: any;
     }
+  }
 }

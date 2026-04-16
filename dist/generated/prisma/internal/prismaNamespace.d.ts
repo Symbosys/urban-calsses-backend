@@ -253,6 +253,11 @@ export declare const ModelName: {
     readonly Wishlist: "Wishlist";
     readonly Banner: "Banner";
     readonly Coupon: "Coupon";
+    readonly Result: "Result";
+    readonly OfflineCenter: "OfflineCenter";
+    readonly Blog: "Blog";
+    readonly OfflineBatch: "OfflineBatch";
+    readonly OfflineBooking: "OfflineBooking";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -265,7 +270,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "account" | "user" | "instructor" | "admin" | "otp" | "category" | "subCategory" | "userGoal" | "course" | "courseInstructor" | "subject" | "section" | "lesson" | "lessonResource" | "courseTag" | "order" | "enrollment" | "lessonProgress" | "review" | "wishlist" | "banner" | "coupon";
+        modelProps: "account" | "user" | "instructor" | "admin" | "otp" | "category" | "subCategory" | "userGoal" | "course" | "courseInstructor" | "subject" | "section" | "lesson" | "lessonResource" | "courseTag" | "order" | "enrollment" | "lessonProgress" | "review" | "wishlist" | "banner" | "coupon" | "result" | "offlineCenter" | "blog" | "offlineBatch" | "offlineBooking";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -1897,6 +1902,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        Result: {
+            payload: Prisma.$ResultPayload<ExtArgs>;
+            fields: Prisma.ResultFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.ResultFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.ResultFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                findFirst: {
+                    args: Prisma.ResultFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.ResultFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                findMany: {
+                    args: Prisma.ResultFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>[];
+                };
+                create: {
+                    args: Prisma.ResultCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                createMany: {
+                    args: Prisma.ResultCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.ResultCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>[];
+                };
+                delete: {
+                    args: Prisma.ResultDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                update: {
+                    args: Prisma.ResultUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.ResultDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.ResultUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.ResultUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>[];
+                };
+                upsert: {
+                    args: Prisma.ResultUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$ResultPayload>;
+                };
+                aggregate: {
+                    args: Prisma.ResultAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateResult>;
+                };
+                groupBy: {
+                    args: Prisma.ResultGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.ResultGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.ResultCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.ResultCountAggregateOutputType> | number;
+                };
+            };
+        };
+        OfflineCenter: {
+            payload: Prisma.$OfflineCenterPayload<ExtArgs>;
+            fields: Prisma.OfflineCenterFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.OfflineCenterFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.OfflineCenterFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                findFirst: {
+                    args: Prisma.OfflineCenterFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.OfflineCenterFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                findMany: {
+                    args: Prisma.OfflineCenterFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>[];
+                };
+                create: {
+                    args: Prisma.OfflineCenterCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                createMany: {
+                    args: Prisma.OfflineCenterCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.OfflineCenterCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>[];
+                };
+                delete: {
+                    args: Prisma.OfflineCenterDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                update: {
+                    args: Prisma.OfflineCenterUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.OfflineCenterDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.OfflineCenterUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.OfflineCenterUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>[];
+                };
+                upsert: {
+                    args: Prisma.OfflineCenterUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineCenterPayload>;
+                };
+                aggregate: {
+                    args: Prisma.OfflineCenterAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateOfflineCenter>;
+                };
+                groupBy: {
+                    args: Prisma.OfflineCenterGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineCenterGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.OfflineCenterCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineCenterCountAggregateOutputType> | number;
+                };
+            };
+        };
+        Blog: {
+            payload: Prisma.$BlogPayload<ExtArgs>;
+            fields: Prisma.BlogFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.BlogFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.BlogFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                findFirst: {
+                    args: Prisma.BlogFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.BlogFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                findMany: {
+                    args: Prisma.BlogFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[];
+                };
+                create: {
+                    args: Prisma.BlogCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                createMany: {
+                    args: Prisma.BlogCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.BlogCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[];
+                };
+                delete: {
+                    args: Prisma.BlogDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                update: {
+                    args: Prisma.BlogUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.BlogDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.BlogUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.BlogUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[];
+                };
+                upsert: {
+                    args: Prisma.BlogUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>;
+                };
+                aggregate: {
+                    args: Prisma.BlogAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateBlog>;
+                };
+                groupBy: {
+                    args: Prisma.BlogGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.BlogGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.BlogCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.BlogCountAggregateOutputType> | number;
+                };
+            };
+        };
+        OfflineBatch: {
+            payload: Prisma.$OfflineBatchPayload<ExtArgs>;
+            fields: Prisma.OfflineBatchFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.OfflineBatchFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.OfflineBatchFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                findFirst: {
+                    args: Prisma.OfflineBatchFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.OfflineBatchFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                findMany: {
+                    args: Prisma.OfflineBatchFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>[];
+                };
+                create: {
+                    args: Prisma.OfflineBatchCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                createMany: {
+                    args: Prisma.OfflineBatchCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.OfflineBatchCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>[];
+                };
+                delete: {
+                    args: Prisma.OfflineBatchDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                update: {
+                    args: Prisma.OfflineBatchUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.OfflineBatchDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.OfflineBatchUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.OfflineBatchUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>[];
+                };
+                upsert: {
+                    args: Prisma.OfflineBatchUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBatchPayload>;
+                };
+                aggregate: {
+                    args: Prisma.OfflineBatchAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateOfflineBatch>;
+                };
+                groupBy: {
+                    args: Prisma.OfflineBatchGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineBatchGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.OfflineBatchCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineBatchCountAggregateOutputType> | number;
+                };
+            };
+        };
+        OfflineBooking: {
+            payload: Prisma.$OfflineBookingPayload<ExtArgs>;
+            fields: Prisma.OfflineBookingFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.OfflineBookingFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.OfflineBookingFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                findFirst: {
+                    args: Prisma.OfflineBookingFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.OfflineBookingFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                findMany: {
+                    args: Prisma.OfflineBookingFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>[];
+                };
+                create: {
+                    args: Prisma.OfflineBookingCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                createMany: {
+                    args: Prisma.OfflineBookingCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.OfflineBookingCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>[];
+                };
+                delete: {
+                    args: Prisma.OfflineBookingDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                update: {
+                    args: Prisma.OfflineBookingUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.OfflineBookingDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.OfflineBookingUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.OfflineBookingUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>[];
+                };
+                upsert: {
+                    args: Prisma.OfflineBookingUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OfflineBookingPayload>;
+                };
+                aggregate: {
+                    args: Prisma.OfflineBookingAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateOfflineBooking>;
+                };
+                groupBy: {
+                    args: Prisma.OfflineBookingGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineBookingGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.OfflineBookingCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OfflineBookingCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -2180,6 +2555,82 @@ export declare const CouponScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum];
+export declare const ResultScalarFieldEnum: {
+    readonly id: "id";
+    readonly studentName: "studentName";
+    readonly rank: "rank";
+    readonly examName: "examName";
+    readonly year: "year";
+    readonly image: "image";
+    readonly college: "college";
+    readonly quote: "quote";
+    readonly isFeatured: "isFeatured";
+    readonly categoryId: "categoryId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof ResultScalarFieldEnum];
+export declare const OfflineCenterScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly city: "city";
+    readonly address: "address";
+    readonly phone: "phone";
+    readonly email: "email";
+    readonly image: "image";
+    readonly locationUrl: "locationUrl";
+    readonly isActive: "isActive";
+    readonly order: "order";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type OfflineCenterScalarFieldEnum = (typeof OfflineCenterScalarFieldEnum)[keyof typeof OfflineCenterScalarFieldEnum];
+export declare const BlogScalarFieldEnum: {
+    readonly id: "id";
+    readonly title: "title";
+    readonly slug: "slug";
+    readonly content: "content";
+    readonly excerpt: "excerpt";
+    readonly thumbnail: "thumbnail";
+    readonly category: "category";
+    readonly tags: "tags";
+    readonly isPublished: "isPublished";
+    readonly publishedAt: "publishedAt";
+    readonly authorName: "authorName";
+    readonly authorImage: "authorImage";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum];
+export declare const OfflineBatchScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly capacity: "capacity";
+    readonly startDate: "startDate";
+    readonly endDate: "endDate";
+    readonly startTime: "startTime";
+    readonly endTime: "endTime";
+    readonly daysOfWeek: "daysOfWeek";
+    readonly isActive: "isActive";
+    readonly courseId: "courseId";
+    readonly centerId: "centerId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type OfflineBatchScalarFieldEnum = (typeof OfflineBatchScalarFieldEnum)[keyof typeof OfflineBatchScalarFieldEnum];
+export declare const OfflineBookingScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly email: "email";
+    readonly phone: "phone";
+    readonly message: "message";
+    readonly status: "status";
+    readonly bookingDate: "bookingDate";
+    readonly userId: "userId";
+    readonly batchId: "batchId";
+    readonly orderId: "orderId";
+};
+export type OfflineBookingScalarFieldEnum = (typeof OfflineBookingScalarFieldEnum)[keyof typeof OfflineBookingScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -2429,6 +2880,11 @@ export type GlobalOmitConfig = {
     wishlist?: Prisma.WishlistOmit;
     banner?: Prisma.BannerOmit;
     coupon?: Prisma.CouponOmit;
+    result?: Prisma.ResultOmit;
+    offlineCenter?: Prisma.OfflineCenterOmit;
+    blog?: Prisma.BlogOmit;
+    offlineBatch?: Prisma.OfflineBatchOmit;
+    offlineBooking?: Prisma.OfflineBookingOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

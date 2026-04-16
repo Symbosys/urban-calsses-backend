@@ -9,6 +9,8 @@ declare const ENV: {
     cloud_api_key: string | undefined;
     cloud_api_secret: string | undefined;
     cloud_folder: string | undefined;
+    RAZORPAY_KEY_ID: string | undefined;
+    RAZORPAY_KEY_SECRET: string | undefined;
     mode: string | undefined;
 };
 export default ENV;

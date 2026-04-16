@@ -1,8 +1,20 @@
 import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../middleware/error.middleware.js";
 import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js";
-import { createBannerValidation, updateBannerValidation } from "../validation/banner.validation.js";
+import { bannerValidation, updateBannerValidation } from "../validation/banner.validation.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
+
+/**
+ * @desc    Get all banners
+ * @route   GET /api/v1/admin/banners
+ * @access  Public / Admin
+ */
+export const getAllBanners = asyncHandler(async (req, res, next) => {
+  const banners = await (prisma as any).banner.findMany({
+    orderBy: { order: "asc" },
+  });
+  return SuccessResponse(res, "Banners fetched successfully", { banners });
+});
 
 /**
  * @desc    Create a new banner
@@ -10,40 +22,23 @@ import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudi
  * @access  Admin
  */
 export const createBanner = asyncHandler(async (req, res, next) => {
-  const validation = createBannerValidation.parse(req.body);
-
-  let imageData = null;
-  if (req.file) {
-    const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "banners");
-    imageData = { public_id, secure_url };
+  if (!req.file) {
+    return next(new ErrorResponse("Banner image is required", 400));
   }
-  
-  const createData: any = {
-    title: validation.title,
-    image: imageData,
-    order: validation.order || 0,
-    isActive: validation.isActive !== undefined ? validation.isActive : true
-  };
-  if (validation.link !== undefined) createData.link = validation.link;
 
-  const banner = await prisma.banner.create({
-    data: createData
+  const validation = bannerValidation.parse(req.body);
+
+  const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "banners");
+
+  const banner = await (prisma as any).banner.create({
+    data: {
+      ...validation,
+      link: validation.link || null,
+      image: { public_id, secure_url },
+    } as any,
   });
 
-  return SuccessResponse(res, "Banner created successfully", { banner });
-});
-
-/**
- * @desc    Get all banners
- * @route   GET /api/v1/admin/banners
- * @access  Admin/Public
- */
-export const getAllBanners = asyncHandler(async (req, res, next) => {
-  const banners = await prisma.banner.findMany({
-    orderBy: { order: "asc" }
-  });
-
-  return SuccessResponse(res, "Banners fetched successfully", { banners });
+  return SuccessResponse(res, "Banner created successfully", { banner }, 201);
 });
 
 /**
@@ -52,37 +47,34 @@ export const getAllBanners = asyncHandler(async (req, res, next) => {
  * @access  Admin
  */
 export const updateBanner = asyncHandler(async (req, res, next) => {
-  const id = req.params.id as string;
+  const { id } = req.params;
+
+  const existing = await (prisma as any).banner.findUnique({ where: { id } });
+  if (!existing) return next(new ErrorResponse("Banner not found", 404));
+
   const validation = updateBannerValidation.parse(req.body);
 
-  const existingBanner = await prisma.banner.findUnique({ where: { id } });
-  if (!existingBanner) {
-    return next(new ErrorResponse("Banner not found", 404));
-  }
+  let imageData = existing.image;
 
-  let imageData = existingBanner.image;
   if (req.file) {
-    // Delete previous image if exists
-    if (existingBanner.image && (existingBanner.image as any).public_id) {
-      await deleteFromCloudinary((existingBanner.image as any).public_id);
+    // Delete old image from Cloudinary
+    if (existing.image && (existing.image as any).public_id) {
+      await deleteFromCloudinary((existing.image as any).public_id);
     }
     const { public_id, secure_url } = await uploadToCloudinary(req.file.buffer, "banners");
     imageData = { public_id, secure_url };
   }
 
-  const updateData: any = {};
-  if (validation.title !== undefined) updateData.title = validation.title;
-  if (validation.link !== undefined) updateData.link = validation.link;
-  if (validation.order !== undefined) updateData.order = validation.order;
-  if (validation.isActive !== undefined) updateData.isActive = validation.isActive;
-  updateData.image = imageData;
-
-  const updatedBanner = await prisma.banner.update({
+  const banner = await (prisma as any).banner.update({
     where: { id },
-    data: updateData
+    data: {
+      ...validation,
+      link: validation.link !== undefined ? (validation.link || null) : undefined,
+      image: imageData,
+    } as any,
   });
 
-  return SuccessResponse(res, "Banner updated successfully", { banner: updatedBanner });
+  return SuccessResponse(res, "Banner updated successfully", { banner });
 });
 
 /**
@@ -91,14 +83,17 @@ export const updateBanner = asyncHandler(async (req, res, next) => {
  * @access  Admin
  */
 export const deleteBanner = asyncHandler(async (req, res, next) => {
-  const id = req.params.id as string;
+  const { id } = req.params;
 
-  const existingBanner = await prisma.banner.findUnique({ where: { id } });
-  if (!existingBanner) {
-    return next(new ErrorResponse("Banner not found", 404));
+  const existing = await (prisma as any).banner.findUnique({ where: { id } });
+  if (!existing) return next(new ErrorResponse("Banner not found", 404));
+
+  // Delete image from Cloudinary
+  if (existing.image && (existing.image as any).public_id) {
+    await deleteFromCloudinary((existing.image as any).public_id);
   }
 
-  await prisma.banner.delete({ where: { id } });
+  await (prisma as any).banner.delete({ where: { id } });
 
   return SuccessResponse(res, "Banner deleted successfully", null);
 });

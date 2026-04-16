@@ -20,5 +20,10 @@ export type * from './models/Review.js';
 export type * from './models/Wishlist.js';
 export type * from './models/Banner.js';
 export type * from './models/Coupon.js';
+export type * from './models/Result.js';
+export type * from './models/OfflineCenter.js';
+export type * from './models/Blog.js';
+export type * from './models/OfflineBatch.js';
+export type * from './models/OfflineBooking.js';
 export type * from './commonInputTypes.js';
 //# sourceMappingURL=models.d.ts.map

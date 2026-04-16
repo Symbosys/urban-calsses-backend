@@ -13,12 +13,15 @@ import lessonRoute from "./modules/courses/routes/lesson.route.js";
 import lessonProgressRoute from "./modules/user/routes/lesson-progress.route.js";
 import reviewRoute from "./modules/user/routes/review.route.js";
 import wishlistRoute from "./modules/user/routes/wishlist.route.js";
-import adminRoute from "./modules/admin/routes/admin.route.js";
+import adminRoute from "./modules/admin/routes/adminModule.route.js";
 import lessonResourceRoute from "./modules/courses/routes/lesson-resource.route.js";
 import resultRoute from "./modules/results/routes/result.routes.js";
-import offlineCenterRoute from "./modules/offlineCenter/routes/offlineCenter.routes.js";
 import blogRoute from "./modules/blog/routes/blog.routes.js";
 import userGoalRoute from "./modules/user/routes/userGoal.route.js";
+import purchaseRoute from "./modules/courses/routes/purchase.route.js";
+import offlineCenterRoute from "./modules/offlineCenter/routes/offlineCenter.routes.js";
+import offlineBatchRoute from "./modules/offlineCenter/routes/offlineBatch.routes.js";
+import offlineBookingRoute from "./modules/offlineCenter/routes/offlineBooking.routes.js";
 
 
 const app = express();
@@ -33,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/user/goals", userGoalRoute);
 app.use("/api/v1/user", authRoute);
 app.use("/api/v1/users", userRoute);
+
 app.use("/api/v1/courses", courseRoute);
 app.use("/api/v1/categories", categoryRoute);
 app.use("/api/v1/sub-categories", subCategoryRoute);
@@ -47,7 +51,10 @@ app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/lessons/resources", lessonResourceRoute);
 app.use("/api/v1/results", resultRoute);
 app.use("/api/v1/offline-centers", offlineCenterRoute);
+app.use("/api/v1/offline-batches", offlineBatchRoute);
+app.use("/api/v1/offline-bookings", offlineBookingRoute);
 app.use("/api/v1/blogs", blogRoute);
+app.use("/api/v1/purchase", purchaseRoute);
 
 
 

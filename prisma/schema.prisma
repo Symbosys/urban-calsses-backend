@@ -4,7 +4,7 @@
 // ───────────────────────────────────────────────────────────────
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
@@ -96,12 +96,13 @@ model User {
   account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   // Relations (Student specific)
-  goals          UserGoal[]
-  enrollments    Enrollment[]
-  orders         Order[]
-  reviews        Review[]
-  lessonProgress LessonProgress[]
-  wishlist       Wishlist[]
+  goals           UserGoal[]
+  enrollments     Enrollment[]
+  orders          Order[]
+  reviews         Review[]
+  lessonProgress  LessonProgress[]
+  wishlist        Wishlist[]
+  offlineBookings OfflineBooking[]
 
   @@map("users")
 }
@@ -241,15 +242,16 @@ model Course {
   updatedAt        DateTime     @updatedAt
 
   // Relations
-  subCategoryId String
-  subCategory   SubCategory        @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  instructors   CourseInstructor[]
-  subjects      Subject[]
-  tags          CourseTag[]
-  enrollments   Enrollment[]
-  orders        Order[]
-  reviews       Review[]
-  wishlist      Wishlist[]
+  subCategoryId  String
+  subCategory    SubCategory        @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  instructors    CourseInstructor[]
+  subjects       Subject[]
+  tags           CourseTag[]
+  enrollments    Enrollment[]
+  orders         Order[]
+  reviews        Review[]
+  wishlist       Wishlist[]
+  offlineBatches OfflineBatch[]
 
   @@index([subCategoryId])
   @@index([status])
@@ -390,10 +392,11 @@ model Order {
   updatedAt     DateTime    @updatedAt
 
   // Relations
-  userId   String
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  courseId String
-  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId       String
+  course         Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  offlineBooking OfflineBooking?
 
   @@index([userId])
   @@index([courseId])
@@ -561,6 +564,8 @@ model OfflineCenter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  offlineBatches OfflineBatch[]
+
   @@index([city])
   @@index([isActive])
   @@map("offline_centers")
@@ -590,4 +595,59 @@ model Blog {
   @@index([slug])
   @@index([isPublished])
   @@map("blogs")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  11. OFFLINE SEAT BOOKING
+// ═══════════════════════════════════════════════════════════════
+
+model OfflineBatch {
+  id         String   @id @default(cuid())
+  name       String // e.g., "Batch A", "Morning Batch"
+  capacity   Int      @default(0)
+  startDate  DateTime
+  endDate    DateTime
+  startTime  String? // e.g., "10:00 AM"
+  endTime    String? // e.g., "12:00 PM"
+  daysOfWeek String[] // ["Monday", "Wednesday"]
+  isActive   Boolean  @default(true)
+
+  // Relations
+  courseId String
+  course   Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  centerId String
+  center   OfflineCenter    @relation(fields: [centerId], references: [id], onDelete: Cascade)
+  bookings OfflineBooking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@index([centerId])
+  @@map("offline_batches")
+}
+
+model OfflineBooking {
+  id      String  @id @default(cuid())
+  // Guest/User details
+  name    String // Full name of the person booking
+  email   String // Email address
+  phone   String // Contact number
+  message String? @db.Text // Optional message/inquiry
+
+  status      OrderStatus @default(PENDING)
+  bookingDate DateTime    @default(now())
+
+  // Relations
+  userId  String? // Optional linkage to registered User
+  user    User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  batchId String
+  batch   OfflineBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  orderId String?      @unique
+  order   Order?       @relation(fields: [orderId], references: [id])
+
+  @@index([userId])
+  @@index([batchId])
+  @@index([email])
+  @@map("offline_bookings")
 }

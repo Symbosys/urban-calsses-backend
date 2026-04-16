@@ -10,9 +10,10 @@ import { removeUndefined } from "../../../utils/utils.js";
  */
 export const createBlog = asyncHandler(async (req, res, next) => {
     const validation = blogValidation.parse(req.body);
+    const { publishedAt: _publishedAt, ...rest } = validation;
     const blog = await prisma.blog.create({
         data: {
-            ...validation,
+            ...removeUndefined(rest),
             publishedAt: validation.isPublished ? new Date() : null,
         },
     });
@@ -48,7 +49,7 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
  * @access  Public
  */
 export const getBlog = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const blog = await prisma.blog.findUnique({
         where: { id },
     });
@@ -62,7 +63,7 @@ export const getBlog = asyncHandler(async (req, res, next) => {
  * @access  Admin/Instructor
  */
 export const updateBlog = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const validation = updateBlogValidation.parse(req.body);
     const existingBlog = await prisma.blog.findUnique({ where: { id } });
     if (!existingBlog)
@@ -72,10 +73,11 @@ export const updateBlog = asyncHandler(async (req, res, next) => {
     if (validation.isPublished && !existingBlog.isPublished && !validation.publishedAt) {
         publishedAt = new Date();
     }
+    const { publishedAt: _publishedAt, ...rest } = validation;
     const blog = await prisma.blog.update({
         where: { id },
         data: {
-            ...removeUndefined(validation),
+            ...removeUndefined(rest),
             publishedAt,
         },
     });
@@ -87,7 +89,7 @@ export const updateBlog = asyncHandler(async (req, res, next) => {
  * @access  Admin
  */
 export const deleteBlog = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const existing = await prisma.blog.findUnique({ where: { id } });
     if (!existing)
         return next(new ErrorResponse("Blog not found", 404));

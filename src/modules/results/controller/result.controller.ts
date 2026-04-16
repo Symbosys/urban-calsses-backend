@@ -105,6 +105,7 @@ export const updateResult = asyncHandler(async (req, res, next) => {
     where: { id },
     data: {
       ...updateData,
+      
       image: imageData,
     } as any,
   });

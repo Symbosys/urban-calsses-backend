@@ -72,7 +72,12 @@ export const ModelName = {
   Review: 'Review',
   Wishlist: 'Wishlist',
   Banner: 'Banner',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  Result: 'Result',
+  OfflineCenter: 'OfflineCenter',
+  Blog: 'Blog',
+  OfflineBatch: 'OfflineBatch',
+  OfflineBooking: 'OfflineBooking'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,6 +409,97 @@ export const CouponScalarFieldEnum = {
 } as const
 
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const ResultScalarFieldEnum = {
+  id: 'id',
+  studentName: 'studentName',
+  rank: 'rank',
+  examName: 'examName',
+  year: 'year',
+  image: 'image',
+  college: 'college',
+  quote: 'quote',
+  isFeatured: 'isFeatured',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof ResultScalarFieldEnum]
+
+
+export const OfflineCenterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  city: 'city',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  image: 'image',
+  locationUrl: 'locationUrl',
+  isActive: 'isActive',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OfflineCenterScalarFieldEnum = (typeof OfflineCenterScalarFieldEnum)[keyof typeof OfflineCenterScalarFieldEnum]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  excerpt: 'excerpt',
+  thumbnail: 'thumbnail',
+  category: 'category',
+  tags: 'tags',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  authorName: 'authorName',
+  authorImage: 'authorImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const OfflineBatchScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  capacity: 'capacity',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  daysOfWeek: 'daysOfWeek',
+  isActive: 'isActive',
+  courseId: 'courseId',
+  centerId: 'centerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OfflineBatchScalarFieldEnum = (typeof OfflineBatchScalarFieldEnum)[keyof typeof OfflineBatchScalarFieldEnum]
+
+
+export const OfflineBookingScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  message: 'message',
+  status: 'status',
+  bookingDate: 'bookingDate',
+  userId: 'userId',
+  batchId: 'batchId',
+  orderId: 'orderId'
+} as const
+
+export type OfflineBookingScalarFieldEnum = (typeof OfflineBookingScalarFieldEnum)[keyof typeof OfflineBookingScalarFieldEnum]
 
 
 export const SortOrder = {
