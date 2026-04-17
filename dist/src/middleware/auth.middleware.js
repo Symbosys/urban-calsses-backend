@@ -24,12 +24,12 @@ export const protect = asyncHandler(async (req, res, next) => {
             },
         });
         if (!account) {
-            return next(new ErrorResponse("Account not found", 404));
+            return next(new ErrorResponse("Account not found. Please log in again.", 401));
         }
         // Determine the profile (normalize req.user)
         let profile = account.student || account.instructor || account.admin;
         if (!profile) {
-            return next(new ErrorResponse("Profile not found associated with this account", 404));
+            return next(new ErrorResponse("Profile not found associated with this account", 401));
         }
         // Attach role to profile.account for backward compatibility with authorize()
         profile.account = { role: account.role };

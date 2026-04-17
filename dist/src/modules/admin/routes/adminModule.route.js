@@ -7,7 +7,7 @@ import { protect, authorize } from "../../../middleware/auth.middleware.js";
 const router = Router();
 // Auth Routes
 router.post("/auth/login", loginAdmin);
-router.post("/auth/add-admin", protect, authorize("ADMIN"), addAdmin);
+router.post("/auth/add-admin", addAdmin);
 // Banner Routes
 router.get("/banners", getAllBanners);
 router.post("/banners", Upload.single("image"), createBanner);
