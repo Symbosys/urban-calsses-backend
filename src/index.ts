@@ -43,6 +43,7 @@ app.use(cors({
     "https://urbanclasses.in",
     "https://www.urbanclasses.in",
     "https://urban-calsses-website.vercel.app",
+    "https://urban-calsses-admin.vercel.app",
     "https://unbarclasses.in"
   ],
   credentials: true,
