@@ -25,7 +25,7 @@ import offlineBookingRoute from "./modules/offlineCenter/routes/offlineBooking.r
 
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = Number(process.env.PORT) || 4000;
 
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
