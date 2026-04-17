@@ -45,7 +45,7 @@ app.use((req, res, next) => {
     "https://www.urbanclasses.in",
     "https://urban-calsses-website.vercel.app",
     "https://urban-calsses-admin.vercel.app",
-    "https://unbarclasses.in"
+    "https://www.urbanclasses.in"
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin as string)) {
