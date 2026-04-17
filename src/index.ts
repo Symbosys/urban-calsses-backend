@@ -33,10 +33,12 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
     "https://urbanclasses.in",
     "https://www.urbanclasses.in",
     "https://urban-calsses-website.vercel.app",
-    "https://unbarclasses.in" // added this as requested, but please check if it's a typo for 'urbanclasses'
+    "https://unbarclasses.in"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
