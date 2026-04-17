@@ -29,8 +29,13 @@ const PORT = process.env.PORT || 4000;
 
 // Middlewares
 app.use(cors({
-  origin:"*",
+  origin: [
+    "http://localhost:5173",
+    "https://urban-calsses-website.vercel.app/"
+  ],
+  credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
