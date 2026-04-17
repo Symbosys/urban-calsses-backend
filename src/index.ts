@@ -31,10 +31,16 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors({
   origin: [
-    "http://localhost:5173", // local frontend
-    "https://unbarclasses.in" // production frontend
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://urbanclasses.in",
+    "https://www.urbanclasses.in",
+    "https://urban-calsses-website.vercel.app",
+    "https://unbarclasses.in" // added this as requested, but please check if it's a typo for 'urbanclasses'
   ],
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
