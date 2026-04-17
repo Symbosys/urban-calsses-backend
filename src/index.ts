@@ -57,7 +57,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.options("*", cors()); // Explicitly handle preflight for all routes
+app.options(/(.*)/, cors()); // Explicitly handle preflight for all routes using regex to avoid path-to-regexp error
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
