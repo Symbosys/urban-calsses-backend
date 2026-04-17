@@ -35,20 +35,29 @@ app.use((req, res, next) => {
 
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:3000",
-    "https://urbanclasses.in",
-    "https://www.urbanclasses.in",
-    "https://urban-calsses-website.vercel.app",
-    "https://urban-calsses-admin.vercel.app",
-    "https://unbarclasses.in"
-  ],
+  origin: (origin, callback) => {
+    const allowed = [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://127.0.0.1:5173",
+      "http://127.0.0.1:3000",
+      "https://urbanclasses.in",
+      "https://www.urbanclasses.in",
+      "https://urban-calsses-website.vercel.app",
+      "https://urban-calsses-admin.vercel.app",
+      "https://unbarclasses.in"
+    ];
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200
 }));
+
+app.options("*", cors()); // Explicitly handle preflight for all routes
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -86,6 +95,6 @@ app.get("/", (req, res) => {
 // Error Middleware
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server started on port ${PORT}`);
 });
