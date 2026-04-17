@@ -27,16 +27,15 @@ import offlineBookingRoute from "./modules/offlineCenter/routes/offlineBooking.r
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middlewares
-// app.use(cors({
-//   origin: [
-//     "http://localhost:5173",
-//     "https://urban-calsses-website.vercel.app/"
-//   ],
-//   credentials: true
-// }));
 
-app.use(cors());
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173", // local frontend
+    "https://unbarclasses.in" // production frontend
+  ],
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
