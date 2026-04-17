@@ -34,8 +34,9 @@ app.use((req, res, next) => {
 
 
 
-app.use(cors({
-  origin: [
+// Manual CORS Middleware
+app.use((req, res, next) => {
+  const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
@@ -45,12 +46,21 @@ app.use(cors({
     "https://urban-calsses-website.vercel.app",
     "https://urban-calsses-admin.vercel.app",
     "https://unbarclasses.in"
-  ],
-  credentials: true,
-  optionsSuccessStatus: 200
-}));
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin as string)) {
+    res.setHeader("Access-Control-Allow-Origin", origin as string);
+  }
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-app.options(/(.*)/, cors()); // Use regex instead of '*' to avoid routing errors in modern environments
+  // Handle Preflight
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
