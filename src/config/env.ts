@@ -12,8 +12,8 @@ const ENV = {
     FRONTEND_URL1: process.env.FRONTEND_URL1,
 
     // credentials to send email
-    USER_EMAIL: process.env.USER_EMAIL,
-    EMAIL_APP_PASSWORD: process.env.EMAIL_APP_PASSWORD,
+    USER_EMAIL: process.env.EMAIL_USER,
+    EMAIL_APP_PASSWORD: process.env.EMAIL_PASS,
 
 
     // Cloudinary Credentials
