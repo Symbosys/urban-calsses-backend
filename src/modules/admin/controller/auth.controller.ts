@@ -78,15 +78,17 @@ export const sendOtp = asyncHandler(async (req, res, next) => {
 
   // Configure Nodemailer transporter
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.EMAIL_USER || "your_email@gmail.com",
-      pass: process.env.EMAIL_PASS || "your_app_password",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER || "your_email@gmail.com",
+    from: process.env.EMAIL_USER,
     to: email,
     subject: "Your OTP Verification Code",
     text: `Your OTP is ${otp}. It is valid for a short time. Please do not share it with anyone.`,
@@ -96,6 +98,7 @@ export const sendOtp = asyncHandler(async (req, res, next) => {
     await transporter.sendMail(mailOptions);
     SuccessResponse(res, "OTP sent successfully to your email", { email });
   } catch (error) {
+    console.error("Email sending error:", error);
     return next(new ErrorResponse("Failed to send OTP", 500));
   }
 });
