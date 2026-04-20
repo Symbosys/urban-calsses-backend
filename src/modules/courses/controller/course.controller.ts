@@ -138,6 +138,47 @@ export const getAllCourses = asyncHandler(async (req, res, next) => {
 });
 
 /**
+ * @desc    Get all free courses
+ * @route   GET /api/v1/courses/free/all
+ * @access  Public
+ */
+export const getFreeCourses = asyncHandler(async (req, res, next) => {
+  const status = req.query.status as any || "PUBLISHED";
+
+  const courses = await prisma.course.findMany({
+    where: {
+      AND: [
+        { price: 0 },
+        { status },
+      ],
+    },
+    include: {
+      subCategory: {
+        include: {
+          category: true,
+        },
+      },
+      instructors: {
+        include: {
+          instructor: true,
+        },
+      },
+      _count: {
+        select: {
+          enrollments: true,
+          subjects: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return SuccessResponse(res, "Free courses fetched successfully", { courses });
+});
+
+/**
  * @desc    Get course by ID
  * @route   GET /api/v1/courses/:id
  * @access  Public/Private
