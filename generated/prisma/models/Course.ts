@@ -349,6 +349,7 @@ export type CourseWhereInput = {
   reviews?: Prisma.ReviewListRelationFilter
   wishlist?: Prisma.WishlistListRelationFilter
   offlineBatches?: Prisma.OfflineBatchListRelationFilter
+  tests?: Prisma.TestListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -381,6 +382,7 @@ export type CourseOrderByWithRelationInput = {
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   wishlist?: Prisma.WishlistOrderByRelationAggregateInput
   offlineBatches?: Prisma.OfflineBatchOrderByRelationAggregateInput
+  tests?: Prisma.TestOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -416,6 +418,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.ReviewListRelationFilter
   wishlist?: Prisma.WishlistListRelationFilter
   offlineBatches?: Prisma.OfflineBatchListRelationFilter
+  tests?: Prisma.TestListRelationFilter
 }, "id" | "slug">
 
 export type CourseOrderByWithAggregationInput = {
@@ -501,6 +504,7 @@ export type CourseCreateInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -532,6 +536,7 @@ export type CourseUncheckedCreateInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUpdateInput = {
@@ -563,6 +568,7 @@ export type CourseUpdateInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -594,6 +600,7 @@ export type CourseUncheckedUpdateInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -753,6 +760,11 @@ export type CourseSumOrderByAggregateInput = {
   totalLessons?: Prisma.SortOrder
 }
 
+export type CourseNullableScalarRelationFilter = {
+  is?: Prisma.CourseWhereInput | null
+  isNot?: Prisma.CourseWhereInput | null
+}
+
 export type CourseScalarRelationFilter = {
   is?: Prisma.CourseWhereInput
   isNot?: Prisma.CourseWhereInput
@@ -814,6 +826,22 @@ export type EnumCourseLevelFieldUpdateOperationsInput = {
 
 export type EnumCourseStatusFieldUpdateOperationsInput = {
   set?: $Enums.CourseStatus
+}
+
+export type CourseCreateNestedOneWithoutTestsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutTestsInput, Prisma.CourseUncheckedCreateWithoutTestsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTestsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneWithoutTestsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutTestsInput, Prisma.CourseUncheckedCreateWithoutTestsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutTestsInput
+  upsert?: Prisma.CourseUpsertWithoutTestsInput
+  disconnect?: Prisma.CourseWhereInput | boolean
+  delete?: Prisma.CourseWhereInput | boolean
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutTestsInput, Prisma.CourseUpdateWithoutTestsInput>, Prisma.CourseUncheckedUpdateWithoutTestsInput>
 }
 
 export type CourseCreateNestedOneWithoutInstructorsInput = {
@@ -956,6 +984,7 @@ export type CourseCreateWithoutSubCategoryInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutSubCategoryInput = {
@@ -986,6 +1015,7 @@ export type CourseUncheckedCreateWithoutSubCategoryInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutSubCategoryInput = {
@@ -1040,6 +1070,146 @@ export type CourseScalarWhereInput = {
   subCategoryId?: Prisma.StringFilter<"Course"> | string
 }
 
+export type CourseCreateWithoutTestsInput = {
+  id?: string
+  title: string
+  slug: string
+  shortDescription?: string | null
+  description?: string | null
+  thumbnail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  previewVideo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  price?: number
+  discountPrice?: number | null
+  language?: string
+  level?: $Enums.CourseLevel
+  status?: $Enums.CourseStatus
+  isFeatured?: boolean
+  durationMonths?: number
+  totalLessons?: number
+  metaTitle?: string | null
+  metaDescription?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subCategory: Prisma.SubCategoryCreateNestedOneWithoutCoursesInput
+  instructors?: Prisma.CourseInstructorCreateNestedManyWithoutCourseInput
+  subjects?: Prisma.SubjectCreateNestedManyWithoutCourseInput
+  tags?: Prisma.CourseTagCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCourseInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
+  wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
+  offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutTestsInput = {
+  id?: string
+  title: string
+  slug: string
+  shortDescription?: string | null
+  description?: string | null
+  thumbnail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  previewVideo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  price?: number
+  discountPrice?: number | null
+  language?: string
+  level?: $Enums.CourseLevel
+  status?: $Enums.CourseStatus
+  isFeatured?: boolean
+  durationMonths?: number
+  totalLessons?: number
+  metaTitle?: string | null
+  metaDescription?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subCategoryId: string
+  instructors?: Prisma.CourseInstructorUncheckedCreateNestedManyWithoutCourseInput
+  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCourseInput
+  tags?: Prisma.CourseTagUncheckedCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCourseInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
+  wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
+  offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutTestsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutTestsInput, Prisma.CourseUncheckedCreateWithoutTestsInput>
+}
+
+export type CourseUpsertWithoutTestsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutTestsInput, Prisma.CourseUncheckedUpdateWithoutTestsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutTestsInput, Prisma.CourseUncheckedCreateWithoutTestsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutTestsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutTestsInput, Prisma.CourseUncheckedUpdateWithoutTestsInput>
+}
+
+export type CourseUpdateWithoutTestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  previewVideo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
+  status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  durationMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  totalLessons?: Prisma.IntFieldUpdateOperationsInput | number
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutCoursesNestedInput
+  instructors?: Prisma.CourseInstructorUpdateManyWithoutCourseNestedInput
+  subjects?: Prisma.SubjectUpdateManyWithoutCourseNestedInput
+  tags?: Prisma.CourseTagUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCourseNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
+  wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
+  offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutTestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  previewVideo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumCourseLevelFieldUpdateOperationsInput | $Enums.CourseLevel
+  status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  durationMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  totalLessons?: Prisma.IntFieldUpdateOperationsInput | number
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructors?: Prisma.CourseInstructorUncheckedUpdateManyWithoutCourseNestedInput
+  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCourseNestedInput
+  tags?: Prisma.CourseTagUncheckedUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCourseNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
+  wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
+  offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+}
+
 export type CourseCreateWithoutInstructorsInput = {
   id?: string
   title: string
@@ -1068,6 +1238,7 @@ export type CourseCreateWithoutInstructorsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutInstructorsInput = {
@@ -1098,6 +1269,7 @@ export type CourseUncheckedCreateWithoutInstructorsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutInstructorsInput = {
@@ -1144,6 +1316,7 @@ export type CourseUpdateWithoutInstructorsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutInstructorsInput = {
@@ -1174,6 +1347,7 @@ export type CourseUncheckedUpdateWithoutInstructorsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutSubjectsInput = {
@@ -1204,6 +1378,7 @@ export type CourseCreateWithoutSubjectsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutSubjectsInput = {
@@ -1234,6 +1409,7 @@ export type CourseUncheckedCreateWithoutSubjectsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutSubjectsInput = {
@@ -1280,6 +1456,7 @@ export type CourseUpdateWithoutSubjectsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutSubjectsInput = {
@@ -1310,6 +1487,7 @@ export type CourseUncheckedUpdateWithoutSubjectsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutTagsInput = {
@@ -1340,6 +1518,7 @@ export type CourseCreateWithoutTagsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutTagsInput = {
@@ -1370,6 +1549,7 @@ export type CourseUncheckedCreateWithoutTagsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutTagsInput = {
@@ -1416,6 +1596,7 @@ export type CourseUpdateWithoutTagsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutTagsInput = {
@@ -1446,6 +1627,7 @@ export type CourseUncheckedUpdateWithoutTagsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutOrdersInput = {
@@ -1476,6 +1658,7 @@ export type CourseCreateWithoutOrdersInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutOrdersInput = {
@@ -1506,6 +1689,7 @@ export type CourseUncheckedCreateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutOrdersInput = {
@@ -1552,6 +1736,7 @@ export type CourseUpdateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutOrdersInput = {
@@ -1582,6 +1767,7 @@ export type CourseUncheckedUpdateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutEnrollmentsInput = {
@@ -1612,6 +1798,7 @@ export type CourseCreateWithoutEnrollmentsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutEnrollmentsInput = {
@@ -1642,6 +1829,7 @@ export type CourseUncheckedCreateWithoutEnrollmentsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -1688,6 +1876,7 @@ export type CourseUpdateWithoutEnrollmentsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
@@ -1718,6 +1907,7 @@ export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutReviewsInput = {
@@ -1748,6 +1938,7 @@ export type CourseCreateWithoutReviewsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutReviewsInput = {
@@ -1778,6 +1969,7 @@ export type CourseUncheckedCreateWithoutReviewsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutReviewsInput = {
@@ -1824,6 +2016,7 @@ export type CourseUpdateWithoutReviewsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutReviewsInput = {
@@ -1854,6 +2047,7 @@ export type CourseUncheckedUpdateWithoutReviewsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutWishlistInput = {
@@ -1884,6 +2078,7 @@ export type CourseCreateWithoutWishlistInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCourseInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutWishlistInput = {
@@ -1914,6 +2109,7 @@ export type CourseUncheckedCreateWithoutWishlistInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCourseInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   offlineBatches?: Prisma.OfflineBatchUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutWishlistInput = {
@@ -1960,6 +2156,7 @@ export type CourseUpdateWithoutWishlistInput = {
   orders?: Prisma.OrderUpdateManyWithoutCourseNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutWishlistInput = {
@@ -1990,6 +2187,7 @@ export type CourseUncheckedUpdateWithoutWishlistInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCourseNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutOfflineBatchesInput = {
@@ -2020,6 +2218,7 @@ export type CourseCreateWithoutOfflineBatchesInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCourseInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutOfflineBatchesInput = {
@@ -2050,6 +2249,7 @@ export type CourseUncheckedCreateWithoutOfflineBatchesInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCourseInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCourseInput
   wishlist?: Prisma.WishlistUncheckedCreateNestedManyWithoutCourseInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutOfflineBatchesInput = {
@@ -2096,6 +2296,7 @@ export type CourseUpdateWithoutOfflineBatchesInput = {
   orders?: Prisma.OrderUpdateManyWithoutCourseNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutOfflineBatchesInput = {
@@ -2126,6 +2327,7 @@ export type CourseUncheckedUpdateWithoutOfflineBatchesInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCourseNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateManySubCategoryInput = {
@@ -2178,6 +2380,7 @@ export type CourseUpdateWithoutSubCategoryInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutSubCategoryInput = {
@@ -2208,6 +2411,7 @@ export type CourseUncheckedUpdateWithoutSubCategoryInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCourseNestedInput
   wishlist?: Prisma.WishlistUncheckedUpdateManyWithoutCourseNestedInput
   offlineBatches?: Prisma.OfflineBatchUncheckedUpdateManyWithoutCourseNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutSubCategoryInput = {
@@ -2246,6 +2450,7 @@ export type CourseCountOutputType = {
   reviews: number
   wishlist: number
   offlineBatches: number
+  tests: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2257,6 +2462,7 @@ export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   reviews?: boolean | CourseCountOutputTypeCountReviewsArgs
   wishlist?: boolean | CourseCountOutputTypeCountWishlistArgs
   offlineBatches?: boolean | CourseCountOutputTypeCountOfflineBatchesArgs
+  tests?: boolean | CourseCountOutputTypeCountTestsArgs
 }
 
 /**
@@ -2325,6 +2531,13 @@ export type CourseCountOutputTypeCountOfflineBatchesArgs<ExtArgs extends runtime
   where?: Prisma.OfflineBatchWhereInput
 }
 
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountTestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestWhereInput
+}
+
 
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2356,6 +2569,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   reviews?: boolean | Prisma.Course$reviewsArgs<ExtArgs>
   wishlist?: boolean | Prisma.Course$wishlistArgs<ExtArgs>
   offlineBatches?: boolean | Prisma.Course$offlineBatchesArgs<ExtArgs>
+  tests?: boolean | Prisma.Course$testsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -2441,6 +2655,7 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   reviews?: boolean | Prisma.Course$reviewsArgs<ExtArgs>
   wishlist?: boolean | Prisma.Course$wishlistArgs<ExtArgs>
   offlineBatches?: boolean | Prisma.Course$offlineBatchesArgs<ExtArgs>
+  tests?: boolean | Prisma.Course$testsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2462,6 +2677,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     wishlist: Prisma.$WishlistPayload<ExtArgs>[]
     offlineBatches: Prisma.$OfflineBatchPayload<ExtArgs>[]
+    tests: Prisma.$TestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2887,6 +3103,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   reviews<T extends Prisma.Course$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wishlist<T extends Prisma.Course$wishlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$wishlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WishlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   offlineBatches<T extends Prisma.Course$offlineBatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$offlineBatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfflineBatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tests<T extends Prisma.Course$testsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$testsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3521,6 +3738,30 @@ export type Course$offlineBatchesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.OfflineBatchScalarFieldEnum | Prisma.OfflineBatchScalarFieldEnum[]
+}
+
+/**
+ * Course.tests
+ */
+export type Course$testsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Test
+   */
+  select?: Prisma.TestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Test
+   */
+  omit?: Prisma.TestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestInclude<ExtArgs> | null
+  where?: Prisma.TestWhereInput
+  orderBy?: Prisma.TestOrderByWithRelationInput | Prisma.TestOrderByWithRelationInput[]
+  cursor?: Prisma.TestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestScalarFieldEnum | Prisma.TestScalarFieldEnum[]
 }
 
 /**

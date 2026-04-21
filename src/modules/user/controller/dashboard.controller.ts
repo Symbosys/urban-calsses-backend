@@ -25,6 +25,17 @@ export const getStudentDashboardMetrics = asyncHandler(async (req: any, res, nex
             level: true,
             price: true,
             thumbnail: true,
+            instructors: {
+              include: {
+                instructor: {
+                  select: {
+                    id: true,
+                    name: true,
+                    avatar: true,
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -40,6 +51,8 @@ export const getStudentDashboardMetrics = asyncHandler(async (req: any, res, nex
     id: enrollment.course.id,
     title: enrollment.course.title,
     level: enrollment.course.level,
+    thumbnail: enrollment.course.thumbnail,
+    instructors: enrollment.course.instructors,
     progress: 45, // default static progress, update with actual progress later
   }));
 

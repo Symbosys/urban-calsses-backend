@@ -253,11 +253,36 @@ model Course {
   wishlist       Wishlist[]
   offlineBatches OfflineBatch[]
 
+  tests          Test[]
   @@index([subCategoryId])
   @@index([status])
   @@index([isFeatured])
   @@index([createdAt])
   @@map("courses")
+}
+
+// ─── Tests & Quizzes ──────────────────────────────────────────
+
+model Test {
+  id             String   @id @default(cuid())
+  title          String
+  description    String?
+  type           String   @default("PRACTICE") // PRACTICE, MOCK, PYQ
+  subject        String?
+  duration       Int      @default(0) // in minutes
+  totalQuestions Int      @default(0)
+  totalMarks     Int      @default(0)
+  date           DateTime?
+  status         String   @default("UPCOMING") // UPCOMING, LIVE, COMPLETED
+  color          String   @default("#4D96FF")
+  
+  courseId       String?
+  course         Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("tests")
 }
 
 // ─── Many-to-Many: Course ↔ Instructor ─────────────────────────

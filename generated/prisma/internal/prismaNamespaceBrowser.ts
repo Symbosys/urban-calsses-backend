@@ -60,6 +60,7 @@ export const ModelName = {
   SubCategory: 'SubCategory',
   UserGoal: 'UserGoal',
   Course: 'Course',
+  Test: 'Test',
   CourseInstructor: 'CourseInstructor',
   Subject: 'Subject',
   Section: 'Section',
@@ -226,6 +227,26 @@ export const CourseScalarFieldEnum = {
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const TestScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  subject: 'subject',
+  duration: 'duration',
+  totalQuestions: 'totalQuestions',
+  totalMarks: 'totalMarks',
+  date: 'date',
+  status: 'status',
+  color: 'color',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
 export const CourseInstructorScalarFieldEnum = {

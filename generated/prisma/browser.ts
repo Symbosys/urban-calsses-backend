@@ -63,6 +63,11 @@ export type UserGoal = Prisma.UserGoalModel
  */
 export type Course = Prisma.CourseModel
 /**
+ * Model Test
+ * 
+ */
+export type Test = Prisma.TestModel
+/**
  * Model CourseInstructor
  * 
  */
