@@ -11,6 +11,12 @@ export declare const createCourse: (req: import("express").Request, res: import(
  */
 export declare const getAllCourses: (req: import("express").Request, res: import("express").Response, next: import("express").NextFunction) => void;
 /**
+ * @desc    Get free courses
+ * @route   GET /api/v1/courses/free/all
+ * @access  Public
+ */
+export declare const getFreeCourses: (req: import("express").Request, res: import("express").Response, next: import("express").NextFunction) => void;
+/**
  * @desc    Get course by ID
  * @route   GET /api/v1/courses/:id
  * @access  Public/Private

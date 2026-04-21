@@ -1,12 +1,16 @@
 import "dotenv/config";
-import pg from 'pg'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../../generated/prisma/client.js'
+import { neon, neonConfig } from '@neondatabase/serverless';
+import { PrismaNeon } from '@prisma/adapter-neon';
+import { PrismaClient } from '../../generated/prisma/client.js';
+import ws from 'ws';
 
-const connectionString = `${process.env.DATABASE_URL}`
+// Use WebSockets (port 443) instead of TCP (port 5432)
+// This bypasses firewall/ISP blocks on port 5432 entirely
+neonConfig.webSocketConstructor = ws;
 
-const pool = new pg.Pool({ connectionString })
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
+const connectionString = process.env.DATABASE_URL!;
 
-export { prisma }
+const adapter = new PrismaNeon({ connectionString });
+const prisma = new PrismaClient({ adapter });
+
+export { prisma };

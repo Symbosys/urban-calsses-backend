@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { createCourse, getAllCourses, getCourseById, getCourseBySlug, updateCourse, deleteCourse, } from "../controller/course.controller.js";
+import { createCourse, getAllCourses, getCourseById, getCourseBySlug, updateCourse, deleteCourse, getFreeCourses, } from "../controller/course.controller.js";
 import { Upload } from "../../../middleware/multter.middleware.js";
 const router = Router();
 // Public routes
 router.get("/", getAllCourses);
+router.get("/free/all", getFreeCourses);
 router.get("/slug/:slug", getCourseBySlug);
 router.get("/:id", getCourseById);
 // Admin/Instructor routes

@@ -1,0 +1,247 @@
+{
+  "timestamp": "2026-04-21T05:21:37.730Z",
+  "method": "GET",
+  "url": "/api/v1/courses",
+  "message": "\nInvalid `prisma.course.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\course.controller.ts:100:19\n\n   97 };\n   98 \n   99 const [courses, total] = await Promise.all([\n→ 100   prisma.course.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.course.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\course.controller.ts:100:19\n\n   97 };\n   98 \n   99 const [courses, total] = await Promise.all([\n→ 100   prisma.course.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Course"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:21:37.744Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:21:46.770Z",
+  "method": "GET",
+  "url": "/api/v1/blogs?isPublished=true",
+  "message": "\nInvalid `prisma.blog.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\blog\\controller\\blog.controller.ts:60:35\n\n  57   ];\n  58 }\n  59 \n→ 60 const blogs = await prisma.blog.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.blog.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\blog\\controller\\blog.controller.ts:60:35\n\n  57   ];\n  58 }\n  59 \n→ 60 const blogs = await prisma.blog.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Blog"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:10.153Z",
+  "method": "GET",
+  "url": "/api/v1/blogs?isPublished=true",
+  "message": "\nInvalid `prisma.blog.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\blog\\controller\\blog.controller.ts:60:35\n\n  57   ];\n  58 }\n  59 \n→ 60 const blogs = await prisma.blog.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.blog.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\blog\\controller\\blog.controller.ts:60:35\n\n  57   ];\n  58 }\n  59 \n→ 60 const blogs = await prisma.blog.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Blog"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:14.134Z",
+  "method": "GET",
+  "url": "/api/v1/courses",
+  "message": "\nInvalid `prisma.course.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\course.controller.ts:100:19\n\n   97 };\n   98 \n   99 const [courses, total] = await Promise.all([\n→ 100   prisma.course.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.course.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\course.controller.ts:100:19\n\n   97 };\n   98 \n   99 const [courses, total] = await Promise.all([\n→ 100   prisma.course.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Course"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:14.142Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:18.002Z",
+  "method": "GET",
+  "url": "/api/v1/results",
+  "message": "\nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Result"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:21.939Z",
+  "method": "GET",
+  "url": "/api/v1/offline-centers?isActive=true",
+  "message": "\nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "OfflineCenter"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:22:45.308Z",
+  "method": "GET",
+  "url": "/api/v1/offline-centers?isActive=true",
+  "message": "\nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "OfflineCenter"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:23:09.703Z",
+  "method": "GET",
+  "url": "/api/v1/offline-centers?isActive=true",
+  "message": "\nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "OfflineCenter"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:23:36.075Z",
+  "method": "GET",
+  "url": "/api/v1/offline-centers?isActive=true",
+  "message": "\nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.offlineCenter.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\offlineCenter\\controller\\offlineCenter.controller.ts:45:46\n\n  42 if (city) where.city = city.toLowerCase();\n  43 if (req.query.isActive) where.isActive = isActive;\n  44 \n→ 45 const centers = await prisma.offlineCenter.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "OfflineCenter"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:10.498Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:10.509Z",
+  "method": "GET",
+  "url": "/api/v1/results",
+  "message": "\nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Result"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:33.871Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:33.916Z",
+  "method": "GET",
+  "url": "/api/v1/results",
+  "message": "\nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Result"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:58.236Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:24:58.273Z",
+  "method": "GET",
+  "url": "/api/v1/results",
+  "message": "\nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Result"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:25:24.587Z",
+  "method": "GET",
+  "url": "/api/v1/categories",
+  "message": "\nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.category.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\courses\\controller\\category.controller.ts:47:44\n\n  44  * @route   GET /api/v1/categories\n  45  */\n  46 export const getAllCategories = asyncHandler(async (req, res, next) => {\n→ 47   const categories = await prisma.category.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Category"
+  }
+}
+---
+{
+  "timestamp": "2026-04-21T05:25:24.651Z",
+  "method": "GET",
+  "url": "/api/v1/results",
+  "message": "\nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n",
+  "name": "PrismaClientKnownRequestError",
+  "code": "Unknown system error -138",
+  "stack": "PrismaClientKnownRequestError: \nInvalid `any).result.findMany()` invocation in\nC:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\src\\modules\\results\\controller\\result.controller.ts:48:48\n\n  45   ],\n  46 };\n  47 \n→ 48 const results = await (prisma as any).result.findMany(\n\n    at handleRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:8178)\n    at handleAndLogRequestError (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7467)\n    at request (C:\\Users\\hp\\Desktop\\symbosys\\urban-classes\\backend\\node_modules\\@prisma\\client\\runtime\\client.js:65:7174)\n    at processTicksAndRejections (native:7:39)",
+  "details": {
+    "modelName": "Result"
+  }
+}
+---

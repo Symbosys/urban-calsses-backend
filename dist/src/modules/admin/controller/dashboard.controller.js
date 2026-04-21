@@ -2,44 +2,34 @@ import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../middleware/error.middleware.js";
 import { SuccessResponse } from "../../../utils/response.util.js";
 /**
- * @desc    Get dashboard statistics
- * @route   GET /api/v1/admin/dashboard/stats
+ * @desc    Get Admin Dashboard Stats
+ * @route   GET /api/v1/admin/dashboard
  * @access  Admin
  */
-export const getDashboardStats = asyncHandler(async (req, res, next) => {
-    const [totalStudents, totalInstructors, totalCourses, totalOrders, revenueData, recentOrders, recentUsers] = await Promise.all([
-        prisma.user.count(),
-        prisma.instructor.count(),
-        prisma.course.count(),
-        prisma.order.count({ where: { status: "COMPLETED" } }),
+export const getAdminDashboardMetrics = asyncHandler(async (req, res, next) => {
+    const [totalStudents, activeCourses, activeInstructors, revenueRows] = await Promise.all([
+        prisma.user.count({ where: { account: { role: "STUDENT" } } }),
+        prisma.course.count({ where: { status: "PUBLISHED" } }),
+        prisma.user.count({ where: { account: { role: "INSTRUCTOR" } } }),
         prisma.order.aggregate({
-            where: { status: "COMPLETED" },
-            _sum: { totalAmount: true }
-        }),
-        prisma.order.findMany({
-            take: 5,
-            orderBy: { createdAt: "desc" },
-            include: {
-                user: { select: { name: true, email: true } },
-                course: { select: { title: true } }
-            }
-        }),
-        prisma.user.findMany({
-            take: 5,
-            orderBy: { id: "desc" },
-            select: { name: true, email: true }
+            _sum: { amount: true },
+            where: { status: "COMPLETED" }
         })
     ]);
-    return SuccessResponse(res, "Dashboard stats fetched successfully", {
+    const totalRevenue = revenueRows._sum.amount || 0;
+    // Recent activity (dummy or real)
+    const recentActivities = [
+        { name: "John Doe", action: "enrolled in", course: "Web Development Bootcamp", time: "2 minutes ago" },
+        { name: "Sarah Smith", action: "purchased", course: "Mastering UI Design", time: "1 hour ago" },
+    ];
+    return SuccessResponse(res, "Admin Dashboard Metrics Fetched", {
         stats: {
+            totalRevenue,
             totalStudents,
-            totalInstructors,
-            totalCourses,
-            totalOrders,
-            totalRevenue: revenueData._sum.totalAmount || 0
+            activeCourses,
+            activeInstructors
         },
-        recentOrders,
-        recentUsers
+        recentActivities
     });
 });
 //# sourceMappingURL=dashboard.controller.js.map

@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
 import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../middleware/error.middleware.js";
 import { ErrorResponse, SuccessResponse } from "../../../utils/response.util.js";
@@ -51,5 +52,37 @@ export const addAdmin = asyncHandler(async (req, res, next) => {
         });
     });
     SuccessResponse(res, "Admin added successfully", admin, 201);
+});
+export const sendOtp = asyncHandler(async (req, res, next) => {
+    const { email } = req.body;
+    if (!email) {
+        return next(new ErrorResponse("Please provide an email", 400));
+    }
+    // Generate a random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: "Your OTP Verification Code",
+        text: `Your OTP is ${otp}. It is valid for a short time. Please do not share it with anyone.`,
+    };
+    try {
+        await transporter.sendMail(mailOptions);
+        SuccessResponse(res, "OTP sent successfully to your email", { email });
+    }
+    catch (error) {
+        console.error("Email sending error:", error);
+        return next(new ErrorResponse("Failed to send OTP", 500));
+    }
 });
 //# sourceMappingURL=auth.controller.js.map

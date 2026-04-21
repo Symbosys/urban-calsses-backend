@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { errorMiddleware } from "./middleware/error.middleware.js";
@@ -23,11 +24,37 @@ import offlineCenterRoute from "./modules/offlineCenter/routes/offlineCenter.rou
 import offlineBatchRoute from "./modules/offlineCenter/routes/offlineBatch.routes.js";
 import offlineBookingRoute from "./modules/offlineCenter/routes/offlineBooking.routes.js";
 const app = express();
-const PORT = process.env.PORT || 4000;
-// Middlewares
-app.use(cors({
-    origin: "*",
-}));
+const PORT = Number(process.env.PORT) || 4000;
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+// Manual CORS Middleware
+app.use((req, res, next) => {
+    const allowedOrigins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:3000",
+        "https://urbanclasses.in",
+        "https://www.urbanclasses.in",
+        "https://urban-calsses-website.vercel.app",
+        "https://urban-calsses-admin.vercel.app",
+        "https://www.urbanclasses.in"
+    ];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // Handle Preflight
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+    next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Routes
@@ -57,7 +84,7 @@ app.get("/", (req, res) => {
 });
 // Error Middleware
 app.use(errorMiddleware);
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server started on port ${PORT}`);
 });
 //# sourceMappingURL=index.js.map

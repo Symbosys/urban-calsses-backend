@@ -4,6 +4,7 @@ import { createAuthValidation, verifyOtpValidation } from "../validation/auth.va
 import { generateOtp } from "../../../utils/otp.js";
 import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js";
 import { generateToken } from "../../../utils/jwt.util.js";
+import { sendEmail } from "../../../utils/mailer.js";
 export const createAuthController = asyncHandler(async (req, res, next) => {
     const validation = createAuthValidation.parse(req.body);
     // if user exists then simply generate otp else create user and generate otp
@@ -42,7 +43,9 @@ export const createAuthController = asyncHandler(async (req, res, next) => {
             },
         });
     }
-    return SuccessResponse(res, "OTP sent successfully", { otp });
+    const emailMessage = `Welcome to Urban Classes!\n\nYour secret One Time Password (OTP) for secure login is: ${otp}\n\nThis code will expire in 10 minutes. If you did not request this, please ignore this email.`;
+    await sendEmail(validation.email, "Your Urban Classes Login OTP", emailMessage);
+    return SuccessResponse(res, "OTP sent successfully to your registered email");
 });
 export const verifyOtpController = asyncHandler(async (req, res, next) => {
     const validation = verifyOtpValidation.parse(req.body);

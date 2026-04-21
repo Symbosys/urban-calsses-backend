@@ -4,6 +4,7 @@ import * as coupons from "../controller/coupon.controller.js";
 import { loginAdmin, addAdmin } from "../controller/auth.controller.js";
 import { Upload } from "../../../middleware/multter.middleware.js";
 import { protect, authorize } from "../../../middleware/auth.middleware.js";
+import { getAdminDashboardMetrics } from "../controller/dashboard.controller.js";
 const router = Router();
 // Auth Routes
 router.post("/auth/login", loginAdmin);
@@ -13,8 +14,9 @@ router.get("/banners", getAllBanners);
 router.post("/banners", Upload.single("image"), createBanner);
 router.patch("/banners/:id", Upload.single("image"), updateBanner);
 router.delete("/banners/:id", deleteBanner);
-// Coupon Routes
+// Dashboard & Coupon Routes (Protected Admin Routes)
 router.use(protect, authorize("ADMIN"));
+router.get("/dashboard", getAdminDashboardMetrics);
 router.get("/coupons", coupons.getAllCoupons);
 router.get("/coupons/:id", coupons.getCouponById);
 router.post("/coupons", coupons.createCoupon);

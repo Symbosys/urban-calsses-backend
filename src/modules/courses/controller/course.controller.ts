@@ -169,6 +169,7 @@ export const getFreeCourses = asyncHandler(async (req, res, next) => {
           subjects: true,
         },
       },
+      tags: true,
     },
     orderBy: {
       createdAt: "desc",

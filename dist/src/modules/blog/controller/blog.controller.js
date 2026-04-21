@@ -3,6 +3,7 @@ import { asyncHandler } from "../../../middleware/error.middleware.js";
 import { SuccessResponse, ErrorResponse } from "../../../utils/response.util.js";
 import { blogValidation, updateBlogValidation } from "../validation/blog.validation.js";
 import { removeUndefined } from "../../../utils/utils.js";
+import { uploadToCloudinary, deleteFromCloudinary } from "../../../config/cloudinary.js";
 /**
  * @desc    Create a new blog post
  * @route   POST /api/v1/blogs
@@ -11,9 +12,22 @@ import { removeUndefined } from "../../../utils/utils.js";
 export const createBlog = asyncHandler(async (req, res, next) => {
     const validation = blogValidation.parse(req.body);
     const { publishedAt: _publishedAt, ...rest } = validation;
+    let thumbnailData = null;
+    let authorImageData = null;
+    const files = req.files;
+    if (files?.thumbnail?.[0]) {
+        const { public_id, secure_url } = await uploadToCloudinary(files.thumbnail[0].buffer, "blogs");
+        thumbnailData = { public_id, secure_url, url: secure_url, publicId: public_id };
+    }
+    if (files?.authorImage?.[0]) {
+        const { public_id, secure_url } = await uploadToCloudinary(files.authorImage[0].buffer, "blogs/authors");
+        authorImageData = { public_id, secure_url, url: secure_url, publicId: public_id };
+    }
     const blog = await prisma.blog.create({
         data: {
             ...removeUndefined(rest),
+            thumbnail: thumbnailData,
+            authorImage: authorImageData,
             publishedAt: validation.isPublished ? new Date() : null,
         },
     });
@@ -73,11 +87,30 @@ export const updateBlog = asyncHandler(async (req, res, next) => {
     if (validation.isPublished && !existingBlog.isPublished && !validation.publishedAt) {
         publishedAt = new Date();
     }
+    let thumbnailData = existingBlog.thumbnail;
+    let authorImageData = existingBlog.authorImage;
+    const files = req.files;
+    if (files?.thumbnail?.[0]) {
+        if (existingBlog.thumbnail && existingBlog.thumbnail.publicId) {
+            await deleteFromCloudinary(existingBlog.thumbnail.publicId);
+        }
+        const { public_id, secure_url } = await uploadToCloudinary(files.thumbnail[0].buffer, "blogs");
+        thumbnailData = { public_id, secure_url, url: secure_url, publicId: public_id };
+    }
+    if (files?.authorImage?.[0]) {
+        if (existingBlog.authorImage && existingBlog.authorImage.publicId) {
+            await deleteFromCloudinary(existingBlog.authorImage.publicId);
+        }
+        const { public_id, secure_url } = await uploadToCloudinary(files.authorImage[0].buffer, "blogs/authors");
+        authorImageData = { public_id, secure_url, url: secure_url, publicId: public_id };
+    }
     const { publishedAt: _publishedAt, ...rest } = validation;
     const blog = await prisma.blog.update({
         where: { id },
         data: {
             ...removeUndefined(rest),
+            thumbnail: thumbnailData,
+            authorImage: authorImageData,
             publishedAt,
         },
     });
